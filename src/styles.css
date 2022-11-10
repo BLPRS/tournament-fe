@@ -19,3 +19,13 @@
     line-height: 2 !important;
     font-family: 'Major Mono Display', monospace;
 } 
+
+.tab_content {
+    font-size: 12px !important;
+    line-height: 2 !important;
+    font-family: 'Major Mono Display', monospace;
+} 
+
+.centerItem{
+    text-align: center;
+  }
