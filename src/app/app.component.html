@@ -61,39 +61,41 @@
 </style>
 
 <div id="Tournament" class="container-fluid">
+  <form method="post">
     <div class="row">
       <div class="col-sm-2"></div>
       <div class="col-sm-4">
         <br><br>
-        <input class="form-control" placeholder="TOURNAMENT NAME" #todoText />
+        <input class="form-control" placeholder="TOURNAMENT NAME" #tournyName required="true"/>
         <br>
-        <textarea class="form-control" id="comments" name="comments" placeholder="TOURNAMENT DESCRIPTION" rows="7"></textarea>
+        <textarea class="form-control" id="comments" name="comments" placeholder="TOURNAMENT DESCRIPTION" 
+        rows="7" #tournyDesc required="true"></textarea>
       </div>
-
       <div class="col-sm-1">
         <br><br>  
           <P class="text-left con_name">GAME TYPE:</P><br><br>
           <P class="text-left con_name">GAME FORMAT:</P><br>
-          <P class="text-left con_name">NO OF PLAYERS:</P><br>
-          <P class="text-left con_name">START TIME:</P>
+          <P class="text-left con_name">NO OF PLAYERS:</P><br><br>
+          <P class="text-left con_name">START DATE:</P>
       </div>    
-
       <div class="col-sm-3">
         <br>
-        <P class="text-center con_name">GAME INFORMATION</P>
+        <P class="text-center con_name"><strong>GAME INFORMATION </strong></P>
         <input class="form-control" placeholder="GAME TYPE"/><br>
           <input class="form-control" placeholder="GAME FORMAT"/><br>
-          <input class="form-control" placeholder="NO OF PLAYERS"/><br>
-          <input class="form-control" placeholder="START TIME"/><br>  
+          <input class="form-control" placeholder="NO OF PLAYERS (MAX: 250)"/><br>
+          <input id="startDate" class="form-control con_name" type="date" required="true"/><br>
+          
+          
         <div class="col-auto ">
-          <button class="btn btn-warning">
+          <button class="btn btn-danger con_name" type="submit" (click)="addNewItem(tournyName.value,tournyDesc.value)">
           Add Tournament
           </button>
         </div>
       </div>
       <div class="col-sm-2"></div>
     </div>
-    
+  </form>
 
 
     <div class="row">
@@ -103,12 +105,23 @@
         <table class="table table-striped table-bordered table-sm">
           <thead>
             <tr class="text-center con_name">
+              <th>Tournament Id</th>
               <th>Tournament Name</th>
               <th>Tournament Description</th>
-              <th colspan="2">Started</th>
+              <th colspan="2">Start Date</th>
             </tr>
           </thead>
           <tbody>
+            <tr *ngFor="let item of getItems; let i = index">
+              <td>{{ i+1 }}</td>
+              <td>{{ item.task }}</td>
+              <td>{{ item.task2 }}</td>
+              <td><input type="checkbox" id="customCheckbox{{i}}" name="customCheckbox{{i}}" [(ngModel)]="item.isComplete"/></td>
+              <td [ngSwitch]="item.isComplete">
+                <span *ngSwitchCase="true">Yes</span>
+                <span *ngSwitchDefault>No</span>
+              </td>
+            </tr>
             <!-- <tr *ngFor="let item of getItems; let i = index">
               <td>{{ i+1 }}</td>
               <td>{{ item.task }}</td>
@@ -121,6 +134,16 @@
           </tbody>
         </table>
       </div>
+
+      <!-- <div class="bg-secondary text-white text-left p-2">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="showComplete" />
+          <label class="form-check-label" >
+            Show Completed Tasks
+          </label>
+        </div>
+     </div> -->
+
       <div class="col-sm-2"></div>
     </div>
 </div> 
