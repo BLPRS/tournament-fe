@@ -1,0 +1,131 @@
+
+
+<style>
+  :host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 8px 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: #fc707c;
+    color: white;
+    font-weight: 600;
+  }
+
+  .toolbar img {
+    margin: 0 16px;
+  }
+
+  .toolbar #twitter-logo {
+    height: 40px;
+    margin: 0 8px;
+  }
+
+  .toolbar #youtube-logo {
+    height: 40px;
+    margin: 0 16px;
+  }
+
+  .toolbar #twitter-logo:hover,
+  .toolbar #youtube-logo:hover {
+    opacity: 0.8;
+  }
+</style>
+
+<div id="Tournament" class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-4">
+        <br><br>
+        <input class="form-control" placeholder="TOURNAMENT NAME" #todoText />
+        <br>
+        <textarea class="form-control" id="comments" name="comments" placeholder="TOURNAMENT DESCRIPTION" rows="7"></textarea>
+      </div>
+
+      <div class="col-sm-1">
+        <br><br>  
+          <P class="text-left con_name">GAME TYPE:</P><br><br>
+          <P class="text-left con_name">GAME FORMAT:</P><br>
+          <P class="text-left con_name">NO OF PLAYERS:</P><br>
+          <P class="text-left con_name">START TIME:</P>
+      </div>    
+
+      <div class="col-sm-3">
+        <br>
+        <P class="text-center con_name">GAME INFORMATION</P>
+        <input class="form-control" placeholder="GAME TYPE"/><br>
+          <input class="form-control" placeholder="GAME FORMAT"/><br>
+          <input class="form-control" placeholder="NO OF PLAYERS"/><br>
+          <input class="form-control" placeholder="START TIME"/><br>  
+        <div class="col-auto ">
+          <button class="btn btn-warning">
+          Add Tournament
+          </button>
+        </div>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+    
+
+
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <br><br>
+        <table class="table table-striped table-bordered table-sm">
+          <thead>
+            <tr class="text-center con_name">
+              <th>Tournament Name</th>
+              <th>Tournament Description</th>
+              <th colspan="2">Started</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr *ngFor="let item of getItems; let i = index">
+              <td>{{ i+1 }}</td>
+              <td>{{ item.task }}</td>
+              <td><input type="checkbox" [(ngModel)]="item.complete" /></td>
+              <td [ngSwitch]="item.complete">
+                <span *ngSwitchCase="true">Yes</span>
+                <span *ngSwitchDefault>No</span>
+              </td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-2"></div>
+    </div>
+</div> 
+  
+  
+
+  
+
