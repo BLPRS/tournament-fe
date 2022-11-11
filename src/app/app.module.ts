@@ -6,10 +6,11 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
 import { IndexModule } from "./components/index/index.module";
+import { TournamentModule } from "./components/tournament/tournament.module";
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, FormsModule, AppRoutingModule, IndexModule],
+  imports: [BrowserModule, FormsModule, AppRoutingModule, IndexModule, TournamentModule],
   providers: [],
   bootstrap: [AppComponent],
 })
