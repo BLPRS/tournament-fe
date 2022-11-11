@@ -1,0 +1,63 @@
+<app-header [title]="title"></app-header>
+
+<main class="container">
+  <div class="row">
+    <h1 class="text-center">{{ title }}</h1>
+    <div class="d-flex justify-content-center">
+      <hr class="border border-dark border-2 opacity-50 w-25" />
+    </div>
+
+    <div>
+      <a
+        routerLink="/tournament/add"
+        class="btn btn-primary align-self-end"
+        role="button"
+      >
+        <i class="fas fa-plus-circle"></i>
+        Create new Tournament
+      </a>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-hover">
+        <tr>
+          <th class="text-center">No</th>
+          <th class="text-center">Name</th>
+          <th class="text-center">Description</th>
+          <th class="text-center">Type</th>
+          <th class="text-center">Game</th>
+          <th class="text-center">No. of players</th>
+          <th class="text-center">Start Date</th>
+          <th class="text-center" colspan="2">Actions</th>
+        </tr>
+
+        <tr *ngFor="let item of tournamentList; let i = index">
+          <td class="text-center">{{ i + 1 }}</td>
+          <td class="text-center">{{ item.name }}</td>
+          <td class="text-center">{{ item.description }}</td>
+          <td class="text-center">{{ item.type }}</td>
+          <td class="text-center">{{ item.gameName }}</td>
+          <td class="text-center">{{ item.playerNum }}</td>
+          <td class="text-center">{{ item.startedAt }}</td>
+          <td class="text-center">
+            <button
+              [routerLink]="['/tournament/edit/', item._id]"
+              class="btn bg-primary btn-primary btn-sm"
+            >
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+          </td>
+          <td class="text-center">
+            <button
+              (click)="deleteMethod(item._id)"
+              class="btn bg-danger btn-danger btn-sm"
+            >
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</main>
+
+<app-footer></app-footer>
