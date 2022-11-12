@@ -37,12 +37,14 @@ export class AddEditComponent implements OnInit {
 
   save(form: NgForm) {
     this.repository.saveTournament(this.item);
-    this.router.navigateByUrl("tournament/list");
+    // this.router.navigateByUrl("tournament/list");
+    this.router.navigateByUrl("/");
   }
 
   private deleteItem(id: string) {
     this.repository.deleteTournament(id);
-    this.router.navigateByUrl("tournament/list");
+    // this.router.navigateByUrl("tournament/list");
+    this.router.navigateByUrl("/");
   }
 }
 

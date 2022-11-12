@@ -4,10 +4,11 @@ import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { FooterModule } from "../footer/footer.module";
 import { HeaderModule } from "../header/header.module";
+import { TournamentModule } from "../tournament/tournament.module";
 import { IndexComponent } from "./index.component";
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, RouterModule, HeaderModule, FooterModule],
+  imports: [BrowserModule, FormsModule, RouterModule, HeaderModule, FooterModule, TournamentModule],
   declarations: [IndexComponent],
   exports: [IndexComponent],
 })
