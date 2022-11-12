@@ -1,19 +1,17 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
 
-import { AppComponent } from './app.component';
-import { AddTournamentComponent } from './add-tournament/add-tournament.component';
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+
+import { IndexModule } from "./components/index/index.module";
+import { TournamentModule } from "./components/tournament/tournament.module";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AddTournamentComponent
-  ],
-  imports: [
-    BrowserModule,FormsModule,
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, FormsModule, AppRoutingModule, IndexModule, TournamentModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

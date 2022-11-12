@@ -1,0 +1,105 @@
+<app-header [title]="title"></app-header>
+
+<div class="container">
+  <div class="row">
+    <div class="offset-md-3 col-md-6">
+      <h1 class="text-center">{{ editing ? "Edit" : "Create new" }} Tournament</h1>
+      <div class="d-flex justify-content-center">
+        <hr class="border border-dark border-2 opacity-50 w-25" />
+      </div>
+
+      <form novalidate #form="ngForm" (ngSubmit)="save(form)">
+        <div class="form-group">
+          <input type="hidden" name="id" [(ngModel)]="item._id" />
+        </div>
+        <div class="form-group">
+          <label for="nameTextField">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nameTextField"
+            placeholder="Enter the Item Name"
+            name="item"
+            [(ngModel)]="item.name"
+            required
+          />
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="descTextField">Description</label>
+          <textarea
+            type="text"
+            class="form-control"
+            id="descTextField"
+            placeholder="Enter tournament description"
+            name="description"
+            [(ngModel)]="item.description"
+          >
+          </textarea>
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="typeTextField">Type</label>
+          <input
+            type="text"
+            class="form-control"
+            id="typeTextField"
+            placeholder="Enter tournament type"
+            name="type"
+            [(ngModel)]="item.type"
+          />
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="gameNameTextField">Game</label>
+          <input
+            type="text"
+            class="form-control"
+            id="gameNameTextField"
+            placeholder="Enter game name"
+            name="gameName"
+            [(ngModel)]="item.gameName"
+          />
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="playerNumTextField">Number of players</label>
+          <input
+            type="number"
+            class="form-control"
+            id="playerNumTextField"
+            placeholder="Number of players (Max: 256)"
+            min="2"
+            max="256"
+            name="playerNum"
+            [(ngModel)]="item.playerNum"
+          />
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="startedAtTextField">Start Date</label>
+          <input
+            type="date"
+            class="form-control"
+            id="startedAtTextField"
+            name="startedAt"
+            [(ngModel)]="item.startedAt"
+          />
+        </div>
+        <br />
+
+        <button class="btn btn-primary" type="submit">
+          <i class="fa-solid fa-pen-to-square"></i>
+          Submit
+        </button>
+
+        <a href="#" routerLink="/" class="btn btn-warning">
+          <i class="fa-solid fa-rotate-left"></i>
+          Cancel
+        </a>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
