@@ -1,6 +1,6 @@
 <!-- Main Nav bar  -->
 <nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
-  <div class="container-fluid">
+  <div class="container-fluid" >
     <!-- Brand/logo -->
     <a class="navbar-brand" routerLink="/">
       <img
@@ -12,14 +12,61 @@
       />
       Tournament Generator
     </a>
-
+  
     <!-- Links -->
-    <ul class="navbar-nav">
+    <ul class="navbar-nav"   >
       <li class="nav-item">
         <a class="nav-link" [class.active]="title == 'Home'" routerLink="/">
-          <i class="fas fa-home"></i> Home
+          <i class="fa-solid fa-chess-clock-flip"></i> Home
         </a>
       </li>
+      <li class="nav-item dropdown">
+        <a *ngIf="title == 'Tournament List' || title == 'Create new Tournament'; else deactiveList"
+            class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            <i class="fa-solid fa-chess-clock-flip"></i> Tournament
+         
+        </a>
+        
+        <ng-template #deactiveList>
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            <i class="fa-solid fa-chess-clock-flip"></i> Tournament
+          </a>
+        </ng-template>
+      
+        <ul class="dropdown-menu">
+
+          <li>
+            <a class="dropdown-item" routerLink="/tournament/list">
+              <i class="fa-regular fa-rectangle-list"></i> 
+              Tournament List
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" routerLink="/tournament/add">
+              <i class="fa-solid fa-square-plus"></i>
+              Create a new Tournament
+            </a>
+          </li>
+        </ul>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="title == 'Events'" href="/Events">
+       
+           Events 
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="title == 'Communities'" href="/Communities">
+           Communities 
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="title == 'Login '" href="/Login ">
+        Log in 
+        </a>
+      </li>
+
       <!-- <li class="nav-item dropdown">
         <a
           *ngIf="
