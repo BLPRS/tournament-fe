@@ -7,12 +7,14 @@ import { AppComponent } from "./app.component";
 
 import { IndexModule } from "./components/index/index.module";
 import { TournamentModule } from "./components/tournament/tournament.module";
-import { MyProfileComponent } from './my-profile/my-profile.component';
+import { ProfileModule } from "./components/my-profile/my-profile.module";
 
 @NgModule({
-  declarations: [AppComponent, MyProfileComponent],
-  imports: [BrowserModule, FormsModule, AppRoutingModule, IndexModule, TournamentModule],
+  declarations: [AppComponent],
+  imports: [BrowserModule, FormsModule, AppRoutingModule, IndexModule, TournamentModule, ProfileModule],
   providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+// [AppComponent, MyProfileComponent],
