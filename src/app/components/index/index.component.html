@@ -1,25 +1,40 @@
-<app-header [title]="title"></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <!-- begin header -->
+      <div class="mt-2">
+        <a
+          [routerLink]="['/tournament', 'add']"
+          class="btn btn-primary btn-sm float-end"
+        >
+          Create new Tournament
+        </a>
+        <h3>Ongoing Tournaments</h3>
+      </div>
+      <!-- end header -->
 
-<div class="container-fluid">
-  <h1 class="text-center">{{ title }}</h1>
-  <div class="d-flex justify-content-center">
-    <hr class="border border-dark border-2 opacity-50 w-25" />
-  </div>
+      <br />
 
-  <div class="container d-flex justify-content-center">
-    <div class="card w-75">
-      <h3 class="card-header">Simplify Tournament Management</h3>
-      <div class="card-body text-center">
-        <h5 class="card-title">Join the millions who trust Tournament to manage their games</h5>
-        <p class="card-text">
-          Try our <a routerLink="/tournament/add">Tournament Generator</a>
-        </p>
+      <div
+        class="col-sm-6 col-md-4 col-lg-3"
+        *ngFor="let item of tournamentList"
+      >
+        <a class="tournament" [routerLink]="['/tournament', 'view', item._id]">
+          <div class="name">
+            <i *ngIf="!item.completed" class="fas fa-light fa-square"></i>
+            <i *ngIf="item.completed" class="fas fa-light fa-square-check"></i>
+            {{ item.name }}
+          </div>
+          <div class="information">
+            <div class="participants">
+              <i class="fas fa-users"></i> {{ item.participants?.length }}
+            </div>
+            <div class="date">
+              <i class="fas fa-calendar"></i> {{ item.startedAt }}
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </div>
-
-  <br />
-  <app-tournament-list></app-tournament-list>
 </div>
-
-<app-footer></app-footer>

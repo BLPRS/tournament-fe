@@ -1,0 +1,49 @@
+<section class="section-auth">
+  <div class="auth-container">
+    <div class="brand">
+      <a href="/">
+        <img class="brand" src="/assets/img/BLPRS.svg" />
+      </a>
+    </div>
+
+    <div class="form">
+      <div class="greeting">Hi There!</div>
+      <form>
+        <div class="form-group mb-2">
+          <label for="username" class="form-label"> Username </label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter your username or email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label"> Password </label>
+          <div class="input-group mb-3">
+            <input
+              [type]="passwordType"
+              class="form-control"
+              placeholder="Enter your password"
+            />
+            <span class="input-group-text" (click)="togglePassword()">
+              <i
+                class="fas"
+                [class.fa-eye]="!isPasswordVisible"
+                [class.fa-eye-slash]="isPasswordVisible"
+              ></i>
+            </span>
+          </div>
+        </div>
+        <button class="btn btn-primary">Sign In</button>
+      </form>
+      <div class="footnote">
+        <span>Do not have an account?</span>
+        <a [routerLink]="['/auth', 'register']">Sign Up</a>
+      </div>
+    </div>
+
+    <div class="illustration">
+      <img src="/assets/img/auth_illustration.svg" />
+    </div>
+  </div>
+</section>

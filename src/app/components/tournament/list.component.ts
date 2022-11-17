@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Tournament } from "src/app/models/tournament.model";
 import { TournamentRepository } from "src/app/models/tournament.repository";
+import { toDateString } from '../../utils';
 
 @Component({
   selector: "app-tournament-list",
@@ -14,12 +15,16 @@ export class ListComponent implements OnInit {
   constructor(
     private repository: TournamentRepository,
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   get tournamentList(): Tournament[] {
-    return this.repository.getTournament();
+    return this.repository.getTournaments();
+  }
+
+  toDateString(value: any) {
+    return toDateString(value);
   }
 
   deleteMethod(id: string) {

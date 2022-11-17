@@ -1,0 +1,43 @@
+<div class="bracket" [class.out-of-8]="isEight">
+  <div class="content">
+    <section
+      class="round"
+      [class.of-16]="round === 'r16'"
+      [class.of-8]="round === 'r8'"
+      [class.of-4]="round === 'r4'"
+      [class.of-2]="round === 'r2'"
+      *ngFor="let round of keys"
+    >
+      <div class="box" *ngFor="let i of roundLength(round)">
+        <div class="matchups">
+          <div class="matchup" *ngFor="let j of matchupLength(round, i)">
+            <div class="participants">
+              <div
+                class="participant"
+                [class.c-pointer]="!readonly"
+                [class.pointer-events-none]="readonly"
+                [class.winner]="rounds[round][j].winner === 0"
+                (click)="advance(round, j, 0)"
+              >
+                <span>{{ getParticipant(rounds[round][j].x)?.name }}</span>
+              </div>
+              <div
+                class="participant"
+                [class.c-pointer]="!readonly"
+                [class.pointer-events-none]="readonly"
+                [class.winner]="rounds[round][j].winner === 1"
+                (click)="advance(round, j, 1)"
+              >
+                <span>{{ getParticipant(rounds[round][j].y).name }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="connector" *ngIf="rounds[round][i + 1]">
+          <div class="bracket"></div>
+          <div class="line"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

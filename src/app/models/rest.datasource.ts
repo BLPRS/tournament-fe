@@ -16,7 +16,6 @@ export class RestDataSource {
     this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}`;
   }
 
-  // Tournament
   getTournamentList(): Observable<Tournament[]> {
     return this.http.get<Tournament[]>(`${this.baseUrl}/tournaments/list`);
   }
