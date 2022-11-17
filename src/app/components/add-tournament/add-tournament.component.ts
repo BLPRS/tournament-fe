@@ -15,7 +15,7 @@ export class AddTournamentComponent implements OnInit {
   showComplete: boolean = false;  
 
   //ITEMS FOR TOURNAMENT_NAME
-  private tournyList = new ListOfTourny
+  private userList = new ListOfTourny
   ("Username",
     [
       new ItemTourny("Tekken Tournament","Try-Out Tekken 8 Matchup\n[GT:Double Tournament,GF:Single Elimination,NP:10 players]","2021-05-11"),
@@ -26,11 +26,11 @@ export class AddTournamentComponent implements OnInit {
 
   //NOT USE
   get username(): string {    
-    return this.tournyList.user;
+    return this.userList.user;
   }  
 
   get getItems(): ItemTourny[] {    
-    return this.tournyList.items.filter( item =>  this.showComplete || !item.isComplete);
+    return this.userList.items.filter( item =>  this.showComplete || !item.isComplete);
     //return this.tournyList.items;
   }
 
@@ -42,7 +42,7 @@ export class AddTournamentComponent implements OnInit {
   /*function to add items*/
   addNewItem(newItem: string, newItem2: string,sDate: string){
     if(newItem != ""){
-      this.tournyList.addItem(newItem,newItem2,sDate);
+      this.userList.addItem(newItem,newItem2,sDate);
     }
   }
 }

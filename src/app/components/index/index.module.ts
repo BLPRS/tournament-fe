@@ -6,6 +6,7 @@ import { FooterModule } from "../footer/footer.module";
 import { HeaderModule } from "../header/header.module";
 import { TournamentModule } from "../tournament/tournament.module";
 import { IndexComponent } from "./index.component";
+import { ProfileModule } from "../my-profile/my-profile.module";
 
 @NgModule({
   imports: [BrowserModule, FormsModule, RouterModule, HeaderModule, FooterModule, TournamentModule],
