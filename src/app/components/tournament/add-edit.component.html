@@ -1,81 +1,118 @@
-<app-header [title]="title"></app-header>
-
 <div class="container">
   <div class="row">
-    <div class="offset-md-3 col-md-6">
-      <h1 class="text-center">{{ editing ? "Edit" : "Create new" }} Tournament</h1>
-      <div class="d-flex justify-content-center">
-        <hr class="border border-dark border-2 opacity-50 w-25" />
-      </div>
+    <div class="col-12">
+      <!-- begin header -->
+      <h3 class="mt-2">{{ editing ? "Edit" : "Create" }} Tournament</h3>
+      <!-- end header -->
 
-      <form novalidate #form="ngForm" (ngSubmit)="save(form)">
+      <!-- begin breadcrumb -->
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item">
+            <a [routerLink]="['/tournament', 'list']">My Tournaments</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">
+            {{ editing ? "Edit" : "Create" }} Tournament
+          </li>
+        </ol>
+      </nav>
+      <!-- end breadcrumb -->
+
+      <!-- begin form -->
+      <form #form="ngForm" (ngSubmit)="save(form)">
         <div class="form-group">
           <input type="hidden" name="id" [(ngModel)]="item._id" />
         </div>
+
+        <!-- begin name field -->
         <div class="form-group">
-          <label for="nameTextField">Name</label>
+          <label for="nameTextField">Name *</label>
           <input
             type="text"
             class="form-control"
             id="nameTextField"
-            placeholder="Enter the Item Name"
+            placeholder="e.g. Tournament Y, Tournament Z"
             name="item"
             [(ngModel)]="item.name"
             required
           />
         </div>
+        <!-- end name -->
+
         <br />
+
+        <!-- begin description field -->
         <div class="form-group">
           <label for="descTextField">Description</label>
           <textarea
             type="text"
             class="form-control"
             id="descTextField"
-            placeholder="Enter tournament description"
+            placeholder="e.g. it is a soccer competition where the players confront each other only once."
             name="description"
             [(ngModel)]="item.description"
           >
           </textarea>
         </div>
+        <!-- end description -->
         <br />
-        <div class="form-group">
-          <label for="typeTextField">Type</label>
-          <input
-            type="text"
-            class="form-control"
-            id="typeTextField"
-            placeholder="Enter tournament type"
-            name="type"
-            [(ngModel)]="item.type"
-          />
+        <!-- begin participants -->
+        <!-- participants control -->
+        <div class="form-group mb-4">
+          <button
+            type="button"
+            [hidden]="isReadOnly"
+            (click)="addParticipant()"
+            class="btn btn-primary btn-sm float-end"
+            [class.disabled]="isDisabled"
+          >
+            Add Participant(s)
+          </button>
+          <h3>Participants</h3>
         </div>
-        <br />
-        <div class="form-group">
-          <label for="gameNameTextField">Game</label>
-          <input
-            type="text"
-            class="form-control"
-            id="gameNameTextField"
-            placeholder="Enter game name"
-            name="gameName"
-            [(ngModel)]="item.gameName"
-          />
+        <!-- end participants control -->
+
+        <!-- list of participants -->
+        <div class="row">
+          <div
+            class="col-sm-6"
+            *ngFor="let participant of item.participants; let i = index"
+          >
+            <div class="input-group mb-2">
+              <span class="input-group-text text-sm"> #{{ i + 1 }} </span>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="e.g. Peeter, Richard, Behnaz, Lucas"
+                required
+                (blur)="saveParticipant(i, $event)"
+                [value]="participant.name"
+              />
+              <button
+                tabindex="-1"
+                [hidden]="isReadOnly"
+                (click)="removeParticipant(i)"
+                class="btn btn-danger"
+              >
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
         </div>
-        <br />
-        <div class="form-group">
-          <label for="playerNumTextField">Number of players</label>
-          <input
-            type="number"
-            class="form-control"
-            id="playerNumTextField"
-            placeholder="Number of players (Max: 256)"
-            min="2"
-            max="256"
-            name="playerNum"
-            [(ngModel)]="item.playerNum"
-          />
+        <!-- end list of participants -->
+
+        <!-- participants validation -->
+        <div *ngIf="isSubmitted" class="text-danger">
+          <div [hidden]="isParticipantValid">
+            The number of participants must be multiple of 8.
+          </div>
         </div>
+        <!-- end participants validation -->
+
+        <!-- end participants -->
         <br />
+        <!-- start date field -->
         <div class="form-group">
           <label for="startedAtTextField">Start Date</label>
           <input
@@ -84,22 +121,53 @@
             id="startedAtTextField"
             name="startedAt"
             [(ngModel)]="item.startedAt"
+            required
           />
         </div>
+        <!-- end start date -->
         <br />
 
-        <button class="btn btn-primary" type="submit">
+        <!-- completed field -->
+        <div class="form-check">
+          <input
+            type="checkbox"
+            id="completed"
+            name="completed"
+            class="form-check-input"
+            [(ngModel)]="item.completed"
+          />
+          <label class="form-check-label" for="completed"> Completed </label>
+        </div>
+        <!-- end completed -->
+
+        <!-- deleted field -->
+        <div class="form-check">
+          <input
+            type="checkbox"
+            id="deleted"
+            name="deleted"
+            class="form-check-input"
+            [(ngModel)]="item.deleted"
+          />
+          <label class="form-check-label" for="deleted"> Hidden </label>
+        </div>
+        <!-- end deleted -->
+
+        <br />
+
+        <!-- begin actions -->
+        <button class="btn btn-primary">
           <i class="fa-solid fa-pen-to-square"></i>
           Submit
         </button>
 
-        <a href="#" routerLink="/" class="btn btn-warning">
+        <a href="#" href="/" class="btn btn-secondary">
           <i class="fa-solid fa-rotate-left"></i>
           Cancel
         </a>
+        <!-- end actions -->
       </form>
+      <!-- end form -->
     </div>
   </div>
 </div>
-
-<app-footer></app-footer>

@@ -1,0 +1,42 @@
+@import "../../../styles/variables";
+
+.tournament {
+  display: block;
+  color: #404040;
+  text-decoration: none;
+  background-color: white;
+  border-radius: $border-radius;
+  padding: $default-distance * 1;
+
+  & > .name {
+    font-weight: 300;
+    font-size: $font-size * 1;
+
+    i {
+      font-size: $font-size * 1;
+      margin-right: $default-distance * 0.5;
+    }
+  }
+
+  & > .information {
+    display: flex;
+    font-size: $font-size * 0.875;
+    margin-top: $default-distance * 1;
+
+    & > .participants {
+    }
+
+    & > .date {
+      margin-left: auto;
+    }
+
+    & > .date,
+    & > .participants {
+      & > i {
+        color: #606060;
+        font-size: $font-size * 0.75;
+        margin-right: $default-distance * 0.5;
+      }
+    }
+  }
+}

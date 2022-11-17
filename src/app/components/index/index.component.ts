@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { Tournament } from "src/app/models";
+import { TournamentRepository } from "src/app/models/tournament.repository";
 
 @Component({
   selector: "app-index",
@@ -8,7 +10,12 @@ import { Component, OnInit } from "@angular/core";
 export class IndexComponent implements OnInit {
   title = "Home";
 
-  constructor() {}
+  constructor(
+    private repository: TournamentRepository) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
+
+  get tournamentList(): Tournament[] {
+    return this.repository.getTournaments().filter(t => !t.deleted);
+  }
 }

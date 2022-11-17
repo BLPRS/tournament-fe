@@ -5,20 +5,20 @@ import { Tournament } from "./tournament.model";
 
 @Injectable()
 export class TournamentRepository {
-  private tournament: Tournament[] = [];
+  private tournaments: Tournament[] = [];
 
   constructor(private dataSource: RestDataSource) {
     dataSource.getTournamentList().subscribe((data) => {
-      this.tournament = data;
+      this.tournaments = data;
     });
   }
 
-  getTournament(): Tournament[] {
-    return this.tournament;
+  getTournaments(): Tournament[] {
+    return this.tournaments;
   }
 
   getItem(id: string): Tournament {
-    return Object.assign({}, this.tournament.find((trn) => trn._id === id)!);
+    return { ...this.tournaments.find((trn) => trn._id === id)! };
   }
 
   async saveTournament(item: Tournament) {
@@ -26,7 +26,7 @@ export class TournamentRepository {
     if (item._id === null || item._id === "" || item._id === undefined) {
       this.dataSource.insertTournament(item).subscribe((response) => {
         if (response._id) {
-          this.tournament.push(response);
+          this.tournaments.push(response);
         } else {
           let error = response as ResponseModel;
           alert(`Error: ${error.message}`);
@@ -36,9 +36,8 @@ export class TournamentRepository {
       this.dataSource.updateTournament(item).subscribe((resp) => {
         let response = resp as ResponseModel;
         if (response.success === true) {
-          console.log(`Success: ${response.success}`);
-          this.tournament.splice(
-            this.tournament.findIndex((trn) => trn._id === item._id),
+          this.tournaments.splice(
+            this.tournaments.findIndex((trn) => trn._id === item._id),
             1,
             item
           );
@@ -52,8 +51,8 @@ export class TournamentRepository {
   deleteTournament(id: string) {
     this.dataSource.deleteTournament(id).subscribe((response) => {
       if (response.success) {
-        this.tournament.splice(
-          this.tournament.findIndex((trn) => trn._id === id),
+        this.tournaments.splice(
+          this.tournaments.findIndex((trn) => trn._id === id),
           1
         );
       } else {

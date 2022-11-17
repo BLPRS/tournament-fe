@@ -1,63 +1,79 @@
-<!-- <app-header [title]="title"></app-header> -->
-
-<main class="container">
+<div class="container">
   <div class="row">
-    <!-- <h1 class="text-center">{{ title }}</h1>
-    <div class="d-flex justify-content-center">
-      <hr class="border border-dark border-2 opacity-50 w-25" />
-    </div> -->
-    
-    <div>
-      <a
-        routerLink="/tournament/add"
-        class="btn btn-primary align-self-end"
-        role="button"
-      >
-        <i class="fas fa-plus-circle"></i>
-        Create new Tournament
-      </a>
-    </div>
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped table-hover">
-        <tr>
-          <th class="text-center">No</th>
-          <th class="text-center">Name</th>
-          <th class="text-center">Description</th>
-          <th class="text-center">Type</th>
-          <th class="text-center">Game</th>
-          <th class="text-center">No. of players</th>
-          <th class="text-center">Start Date</th>
-          <th class="text-center" colspan="2">Actions</th>
-        </tr>
+    <div class="col-12">
+      <!-- begin header -->
+      <div class="mt-2">
+        <a
+          [routerLink]="['/tournament', 'add']"
+          class="btn btn-primary btn-sm float-end"
+        >
+          Create new Tournament
+        </a>
+        <h3>My Tournaments</h3>
+      </div>
+      <!-- end header -->
 
-        <tr *ngFor="let item of tournamentList; let i = index">
-          <td class="text-center">{{ i + 1 }}</td>
-          <td class="text-center">{{ item.name }}</td>
-          <td class="text-center">{{ item.description }}</td>
-          <td class="text-center">{{ item.type }}</td>
-          <td class="text-center">{{ item.gameName }}</td>
-          <td class="text-center">{{ item.playerNum }}</td>
-          <td class="text-center">{{ item.startedAt }}</td>
-          <td class="text-center">
-            <button
-              [routerLink]="['/tournament/edit/', item._id]"
-              class="btn bg-primary btn-primary btn-sm"
-            >
-              <i class="fas fa-pencil-alt"></i>
-            </button>
-          </td>
-          <td class="text-center">
-            <button
-              (click)="deleteMethod(item._id)"
-              class="btn bg-danger btn-danger btn-sm"
-            >
-              <i class="fas fa-trash-alt"></i>
-            </button>
-          </td>
-        </tr>
-      </table>
+      <!-- begin breadcrumb -->
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">
+            My Tournaments
+          </li>
+        </ol>
+      </nav>
+      <!-- end breadcrumb -->
+
+      <!-- begin list tournament -->
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th class="text-center"></th>
+              <th>Name</th>
+              <th class="text-center">No. of players</th>
+              <th class="text-center">Start Date</th>
+              <th class="text-center" colspan="3">Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- TODO: it should list only the tournaments of the user -->
+            <!-- TODO: set some content when there is no tournament -->
+            <tr *ngFor="let item of tournamentList; let i = index">
+              <td class="text-center">#{{ i + 1 }}</td>
+              <td>{{ item.name }}</td>
+              <td class="text-center">{{ item.participants?.length }}</td>
+              <td class="text-center">{{ item.startedAt }}</td>
+              <td class="text-center">
+                <button
+                  [routerLink]="['/tournament', 'view', item._id]"
+                  class="btn bg-secondary btn-primary btn-sm"
+                >
+                  <i class="fas fa-folder-tree"></i>
+                </button>
+              </td>
+              <td class="text-center">
+                <button
+                  [routerLink]="['/tournament', 'edit', item._id]"
+                  class="btn bg-primary btn-primary btn-sm"
+                >
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+              </td>
+              <td class="text-center">
+                <button
+                  (click)="deleteMethod(item._id)"
+                  class="btn bg-danger btn-danger btn-sm"
+                >
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end list tournament -->
     </div>
   </div>
-</main>
-
-<!-- <app-footer></app-footer> -->
+</div>
