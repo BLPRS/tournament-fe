@@ -1,9 +1,6 @@
 <!-- <app-header [title]="title"></app-header> -->
-  <a
-  routerLink="/my-profile/my-profile">
-  
-</a>
 
+<a routerLink="/my-profile/my-profile"></a>
 <div class="container">
     
     <div class="row">
@@ -12,10 +9,7 @@
             <h1><p> Create New Profile</p></h1>
             <h1>{{title}}</h1>
 
-            <!-- <% for(var i in messages) { %>
-                <div class="flash"><%= messages[i] %></div>
-            <% } %> -->
-
+            <!-- //Input Field -->
             <form action="/users/signup" method="post" validate>
                 <div class="form-group">
                     <label>First Name:</label>
@@ -52,7 +46,6 @@
     </div>
 
     <!-- //TABLES -->
-<!-- <div class="row"> -->
 
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
@@ -71,7 +64,6 @@
         </thead>
         <tbody class="tab_content">
           <tr *ngFor="let item of getItems; let i = index">
-            <!-- <td class="centerItem">{{  i+1 }}</td> -->
             <td>{{ item.task }}</td>
             <td>{{ item.task2 }}</td>
             <td>{{ item.task3 }}</td>
