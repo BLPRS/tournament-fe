@@ -6,6 +6,7 @@ import { ListComponent } from "./components/tournament/list.component";
 import { ViewComponent } from "./components/tournament/view.component";
 import { AuthComponent } from "./components/auth/auth.component";
 import { RegisterComponent } from "./components/auth/register.component";
+import { ProfileComponent } from "./components/my-profile/my-profile.component";
 
 import { DefaultLayoutComponent } from './components/layout/default.component';
 import { EmptyLayoutComponent } from './components/layout/empty.component';
@@ -16,6 +17,7 @@ const routesDefaultLayout: Routes = [
   { path: "tournament/view/:id", component: ViewComponent },
   { path: "tournament/:mode", component: AddEditComponent },
   { path: "tournament/:mode/:id", component: AddEditComponent },
+  { path: "my-profile/my-profile", component: ProfileComponent },
 ];
 
 const routesEmptyLayout: Routes = [
