@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { AuthService } from "src/app/models/auth.service";
 
 @Component({
   selector: "app-header",
@@ -8,7 +10,14 @@ import { Component, Input, OnInit } from "@angular/core";
 export class HeaderComponent implements OnInit {
   @Input() title?: string;
 
-  constructor() { }
+  constructor(public auth: AuthService, private router: Router) { }
 
   ngOnInit(): void { }
+  
+  logout() {
+    if (confirm("Are you sure?")) {
+      this.auth.clear();
+      this.router.navigateByUrl("/");
+    }
+  }
 }

@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand">
   <div class="container">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" routerLink="/">
       <img src="/assets/img/BLPRS.svg" height="40" />
     </a>
     <ul class="navbar-nav">
       <li class="nav-item dropdown">
         <a
           *ngIf="
-            title == 'Tournament List' || title == 'Create new Tournament';
+            title === 'Tournament List' || title === 'Create new Tournament';
             else deactiveList
           "
           class="nav-link active dropdown-toggle"
@@ -46,30 +46,23 @@
       </li>
       <li class="nav-item">
         <a
+          *ngIf="auth.authenticated"
           class="nav-link"
           [class.active]="title == 'Profile'"
           [routerLink]="['/my-profile', 'my-profile']"
-          
           >Profile</a
         >
       </li>
       <li class="nav-item">
-        <a
-          class="nav-link"
-          [class.active]="title == 'Login'"
-          [routerLink]="['auth', 'login']"
-        >
-          Sign in
+        <a *ngIf="auth.authenticated" class="nav-link" routerLink="" (click)="logout()">
+          Sign Out ({{ auth.username }})
         </a>
       </li>
       <li class="nav-item">
-        <a
-          class="nav-link"
-          [class.active]="title == 'Register'"
-          [routerLink]="['auth', 'register']"
-        >
-          Sign up
-        </a>
+        <a *ngIf="!auth.authenticated" class="nav-link" [routerLink]="['auth', 'login']"> Sign In </a>
+      </li>
+      <li class="nav-item">
+        <a *ngIf="!auth.authenticated" class="nav-link" [routerLink]="['auth', 'register']"> Sign Up </a>
       </li>
     </ul>
   </div>
