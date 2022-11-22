@@ -10,11 +10,21 @@ import { AuthModule } from "./components/auth/auth.module";
 import { TournamentModule } from "./components/tournament/tournament.module";
 import { SharedModule } from "./components/shared/shared.module";
 import { LayoutModule } from "./components/layout/layout.module";
+import { AuthGuard } from "./components/auth/auth.guard";
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, FormsModule, AppRoutingModule, SharedModule, LayoutModule, IndexModule, AuthModule, TournamentModule],
-  providers: [],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    SharedModule,
+    LayoutModule,
+    IndexModule,
+    AuthModule,
+    TournamentModule,
+  ],
+  providers: [AuthGuard],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
