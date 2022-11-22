@@ -7,14 +7,23 @@
     </div>
 
     <div class="form">
+      <div
+        class="bg-danger mt-2 p-2 text-center text-white"
+        *ngIf="message != null"
+      >
+        {{ message }}
+      </div>
       <div class="greeting">Hi There!</div>
-      <form>
+      <form novalidate #form="ngForm" (ngSubmit)="authenticate(form)">
         <div class="form-group mb-2">
           <label for="username" class="form-label"> Username </label>
           <input
             type="text"
             class="form-control"
-            placeholder="Enter your username or email"
+            id="username"
+            name="username"
+            placeholder="Enter your username"
+            [(ngModel)]="username"
           />
         </div>
         <div class="form-group">
@@ -23,7 +32,10 @@
             <input
               [type]="passwordType"
               class="form-control"
+              id="password"
+              name="password"
               placeholder="Enter your password"
+              [(ngModel)]="password"
             />
             <span class="input-group-text" (click)="togglePassword()">
               <i
@@ -34,7 +46,7 @@
             </span>
           </div>
         </div>
-        <button class="btn btn-primary">Sign In</button>
+        <button class="btn btn-primary" type="submit">Sign In</button>
       </form>
       <div class="footnote">
         <span>Do not have an account?</span>
