@@ -7,16 +7,35 @@
     </div>
 
     <div class="form">
-      <form>
+      <div
+        class="bg-danger mt-2 p-2 text-center text-white"
+        *ngIf="message != null"
+      >
+        {{ message }}
+      </div>
+      <form novalidate #form="ngForm" (ngSubmit)="signup(form)">
         <div class="form-group mb-2">
-          <label for="name" class="form-label"> Name </label>
+          <label for="firstName" class="form-label"> First Name </label>
           <input
             type="text"
             class="form-control"
-            id="name"
-            name="name"
+            id="firstName"
+            name="firstName"
             required
             placeholder="e.g. Behnaz, Peeter"
+            [(ngModel)]="user.firstName"
+          />
+        </div>
+        <div class="form-group mb-2">
+          <label for="lastName" class="form-label"> Last Name </label>
+          <input
+            type="text"
+            class="form-control"
+            id="lastName"
+            name="lastName"
+            required
+            placeholder="e.g. Behnaz, Peeter"
+            [(ngModel)]="user.lastName"
           />
         </div>
         <div class="form-group mb-2">
@@ -28,6 +47,7 @@
             name="email"
             required
             placeholder="e.g. behnaz@gmail.com"
+            [(ngModel)]="user.email"
           />
         </div>
         <div class="form-group mb-2">
@@ -39,6 +59,7 @@
             name="username"
             required
             placeholder="e.g. lucas1, richard3"
+            [(ngModel)]="user.username"
           />
         </div>
         <div class="form-group">
@@ -51,6 +72,7 @@
               name="password"
               required
               placeholder="e.g. abDe12%3"
+              [(ngModel)]="user.password"
             />
             <span class="input-group-text" (click)="togglePassword()">
               <i
@@ -61,7 +83,30 @@
             </span>
           </div>
         </div>
-        <button class="btn btn-primary" (click)="saveUser()">Sign Up</button>
+        <div class="form-group">
+          <label for="passwordConfirm" class="form-label">
+            Confirm Password
+          </label>
+          <div class="input-group mb-3">
+            <input
+              [type]="passwordType"
+              class="form-control"
+              id="passwordConfirm"
+              name="passwordConfirm"
+              required
+              placeholder="e.g. abDe12%3"
+              [(ngModel)]="confirmPassword"
+            />
+            <span class="input-group-text" (click)="togglePassword()">
+              <i
+                class="fas"
+                [class.fa-eye]="!isPasswordVisible"
+                [class.fa-eye-slash]="isPasswordVisible"
+              ></i>
+            </span>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Sign Up</button>
       </form>
       <div class="footnote">
         <span>Already have an account?</span>
