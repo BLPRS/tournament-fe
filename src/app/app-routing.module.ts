@@ -8,16 +8,29 @@ import { AuthComponent } from "./components/auth/auth.component";
 import { RegisterComponent } from "./components/auth/register.component";
 import { ProfileComponent } from "./components/my-profile/my-profile.component";
 
-import { DefaultLayoutComponent } from './components/layout/default.component';
-import { EmptyLayoutComponent } from './components/layout/empty.component';
+import { DefaultLayoutComponent } from "./components/layout/default.component";
+import { EmptyLayoutComponent } from "./components/layout/empty.component";
+import { AuthGuard } from "./components/auth/auth.guard";
 
 const routesDefaultLayout: Routes = [
   { path: "", component: IndexComponent },
   { path: "tournament/list", component: ListComponent },
   { path: "tournament/view/:id", component: ViewComponent },
-  { path: "tournament/:mode", component: AddEditComponent },
-  { path: "tournament/:mode/:id", component: AddEditComponent },
-  { path: "my-profile/my-profile", component: ProfileComponent },
+  {
+    path: "tournament/:mode",
+    component: AddEditComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "tournament/:mode/:id",
+    component: AddEditComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "my-profile/my-profile",
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 const routesEmptyLayout: Routes = [
@@ -26,8 +39,16 @@ const routesEmptyLayout: Routes = [
 ];
 
 const routes: Routes = [
-  { path: '', component: DefaultLayoutComponent, children: routesDefaultLayout },
-  { path: 'auth', component: EmptyLayoutComponent, children: routesEmptyLayout },
+  {
+    path: "",
+    component: DefaultLayoutComponent,
+    children: routesDefaultLayout,
+  },
+  {
+    path: "auth",
+    component: EmptyLayoutComponent,
+    children: routesEmptyLayout,
+  },
   { path: "**", redirectTo: "" },
 ];
 
@@ -35,4 +56,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
