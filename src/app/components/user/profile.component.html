@@ -18,7 +18,12 @@
       >
         {{ message }}
       </div>
-      <form novalidate #form="ngForm" (ngSubmit)="save(form)">
+
+      <p class="placeholder-glow" *ngIf="!this.repository.profileReady">
+        <span class="placeholder col-12"></span>
+      </p>
+
+      <form novalidate #form="ngForm"  *ngIf="this.repository.profileReady && userProfile" (ngSubmit)="save(form)">
         <div class="form-group mb-2">
           <label for="firstName" class="form-label"> First Name </label>
           <input
