@@ -6,15 +6,20 @@ import { Tournament } from "./tournament.model";
 @Injectable()
 export class TournamentRepository {
   private tournaments: Tournament[] = [];
+  listReady: boolean = false;
 
-  constructor(private dataSource: RestDataSource) {
-    dataSource.getTournamentList().subscribe((data) => {
-      this.tournaments = data;
-    });
-  }
+  constructor(private dataSource: RestDataSource) {}
 
   getTournaments(): Tournament[] {
     return this.tournaments;
+  }
+
+  setTournaments() {
+    this.listReady = false;
+    this.dataSource.getTournamentList().subscribe((data) => {
+      this.tournaments = data;
+      this.listReady = true;
+    });
   }
 
   getItem(id: string): Tournament {
