@@ -103,6 +103,27 @@ export class RestDataSource {
       );
   }
 
+  getUser(): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/users/me`, this.provideToken());
+  }
+
+  updateUser(user: User): Observable<ResponseModel> {
+    return this.http
+      .put<ResponseModel>(
+        `${this.baseUrl}/users/edit/${user._id}`,
+        user,
+        this.provideToken()
+      )
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+        catchError((error) => {
+          return of(error.error);
+        })
+      );
+  }
+
   private provideToken() {
     return {
       headers: new HttpHeaders({

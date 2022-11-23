@@ -1,0 +1,140 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#" routerLink="/">Home</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Profile</li>
+        </ol>
+      </nav>
+    </div>
+
+    <div class="form">
+      <div
+        class="bg-danger mt-2 p-2 text-center text-white"
+        *ngIf="message != null"
+      >
+        {{ message }}
+      </div>
+
+      <p class="placeholder-glow" *ngIf="!this.repository.profileReady">
+        <span class="placeholder col-12"></span>
+      </p>
+
+      <form novalidate #form="ngForm"  *ngIf="this.repository.profileReady && userProfile" (ngSubmit)="save(form)">
+        <div class="form-group mb-2">
+          <label for="firstName" class="form-label"> First Name </label>
+          <input
+            type="text"
+            class="form-control"
+            [disabled]="!isEditing"
+            id="firstName"
+            name="firstName"
+            required
+            placeholder="e.g. Behnaz, Peeter"
+            [(ngModel)]="user.firstName"
+          />
+        </div>
+        <div class="form-group mb-2">
+          <label for="lastName" class="form-label"> Last Name </label>
+          <input
+            type="text"
+            class="form-control"
+            [disabled]="!isEditing"
+            id="lastName"
+            name="lastName"
+            required
+            placeholder="e.g. Behnaz, Peeter"
+            [(ngModel)]="user.lastName"
+          />
+        </div>
+        <div class="form-group mb-2">
+          <label for="email" class="form-label"> Email </label>
+          <input
+            type="email"
+            class="form-control"
+            [disabled]="!isEditing"
+            id="email"
+            name="email"
+            required
+            placeholder="e.g. behnaz@gmail.com"
+            [(ngModel)]="user.email"
+          />
+        </div>
+        <div class="form-group mb-2">
+          <label for="username" class="form-label"> Username </label>
+          <input
+            type="text"
+            class="form-control"
+            [disabled]="!isEditing"
+            id="username"
+            name="username"
+            required
+            placeholder="e.g. lucas1, richard3"
+            [(ngModel)]="user.username"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label"> Password </label>
+          <div class="input-group mb-3">
+            <input
+              [type]="passwordType"
+              class="form-control"
+              [disabled]="!isEditing"
+              id="password"
+              name="password"
+              required
+              placeholder="e.g. abDe12%3"
+              [(ngModel)]="user.password"
+            />
+            <span class="input-group-text" (click)="togglePassword()">
+              <i
+                class="fas"
+                [class.fa-eye]="!isPasswordVisible"
+                [class.fa-eye-slash]="isPasswordVisible"
+              ></i>
+            </span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="passwordConfirm" class="form-label">
+            Confirm Password
+          </label>
+          <div class="input-group mb-3">
+            <input
+              [type]="passwordType"
+              class="form-control"
+              [disabled]="!isEditing"
+              id="passwordConfirm"
+              name="passwordConfirm"
+              required
+              placeholder="e.g. abDe12%3"
+              [(ngModel)]="confirmPassword"
+            />
+            <span class="input-group-text" (click)="togglePassword()">
+              <i
+                class="fas"
+                [class.fa-eye]="!isPasswordVisible"
+                [class.fa-eye-slash]="isPasswordVisible"
+              ></i>
+            </span>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="button" *ngIf="!isEditing" (click)="toggleEditMode()">
+          <i class="fa-regular fa-pen-to-square"></i>
+          Edit
+        </button>
+        <button class="btn btn-success" type="submit" *ngIf="isEditing">
+          <i class="fa-solid fa-pen-to-square"></i>
+          Update Information
+        </button>
+        <button class="btn btn-secondary" type="button" *ngIf="isEditing" (click)="toggleEditMode()">
+          <i class="fa-solid fa-rotate-left"></i>
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

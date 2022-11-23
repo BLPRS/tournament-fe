@@ -64,14 +64,12 @@ export class AddEditComponent implements OnInit {
       }
       console.log(this.item);
       this.repository.saveTournament(this.item);
-      // this.router.navigateByUrl("tournament/list");
       this.router.navigateByUrl("/tournament/list");
     }
   }
 
   private deleteItem(id: string) {
     this.repository.deleteTournament(id);
-    // this.router.navigateByUrl("tournament/list");
     this.router.navigateByUrl("/tournament/list");
   }
 

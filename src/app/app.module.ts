@@ -11,6 +11,7 @@ import { TournamentModule } from "./components/tournament/tournament.module";
 import { SharedModule } from "./components/shared/shared.module";
 import { LayoutModule } from "./components/layout/layout.module";
 import { AuthGuard } from "./components/auth/auth.guard";
+import { UserModule } from "./components/user/user.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import { AuthGuard } from "./components/auth/auth.guard";
     IndexModule,
     AuthModule,
     TournamentModule,
+    UserModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],
