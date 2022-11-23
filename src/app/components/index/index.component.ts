@@ -10,12 +10,13 @@ import { TournamentRepository } from "src/app/models/tournament.repository";
 export class IndexComponent implements OnInit {
   title = "Home";
 
-  constructor(
-    private repository: TournamentRepository) { }
+  constructor(public repository: TournamentRepository) {
+    repository.setTournaments();
+  }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   get tournamentList(): Tournament[] {
-    return this.repository.getTournaments().filter(t => !t.deleted);
+    return this.repository.getTournaments().filter((t) => !t.deleted);
   }
 }

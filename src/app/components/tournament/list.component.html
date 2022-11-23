@@ -24,8 +24,12 @@
       </nav>
       <!-- end breadcrumb -->
 
+      <p class="placeholder-glow" *ngIf="!this.repository.listReady">
+        <span class="placeholder col-12"></span>
+      </p>
+
       <!-- begin list tournament -->
-      <div class="table-responsive">
+      <div class="table-responsive" *ngIf="this.repository.listReady">
         <table class="table table-bordered table-hover">
           <thead>
             <tr>

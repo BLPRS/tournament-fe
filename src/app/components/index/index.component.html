@@ -15,25 +15,37 @@
 
       <br />
 
-      <div
-        class="col-sm-6 col-md-4 col-lg-3"
-        *ngFor="let item of tournamentList"
-      >
-        <a class="tournament" [routerLink]="['/tournament', 'view', item._id]">
-          <div class="name">
-            <i *ngIf="!item.completed" class="fas fa-light fa-square"></i>
-            <i *ngIf="item.completed" class="fas fa-light fa-square-check"></i>
-            {{ item.name }}
-          </div>
-          <div class="information">
-            <div class="participants">
-              <i class="fas fa-users"></i> {{ item.participants?.length }}
+      <p class="placeholder-glow" *ngIf="!this.repository.listReady">
+        <span class="placeholder col-12"></span>
+      </p>
+
+      <div *ngIf="this.repository.listReady">
+        <div
+          class="col-sm-6 col-md-4 col-lg-3"
+          *ngFor="let item of tournamentList"
+        >
+          <a
+            class="tournament"
+            [routerLink]="['/tournament', 'view', item._id]"
+          >
+            <div class="name">
+              <i *ngIf="!item.completed" class="fas fa-light fa-square"></i>
+              <i
+                *ngIf="item.completed"
+                class="fas fa-light fa-square-check"
+              ></i>
+              {{ item.name }}
             </div>
-            <div class="date">
-              <i class="fas fa-calendar"></i> {{ item.startedAt }}
+            <div class="information">
+              <div class="participants">
+                <i class="fas fa-users"></i> {{ item.participants?.length }}
+              </div>
+              <div class="date">
+                <i class="fas fa-calendar"></i> {{ item.startedAt }}
+              </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
       </div>
     </div>
   </div>
