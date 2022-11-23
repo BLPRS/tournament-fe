@@ -14,6 +14,7 @@ export class ProfileComponent implements OnInit {
   public confirmPassword: string;
   public message: string;
   isPasswordVisible: boolean = false;
+  isEditing: boolean = false;
 
   constructor(public repository: UserRepository, private router: Router) {
     this.repository.setUser();
@@ -34,8 +35,13 @@ export class ProfileComponent implements OnInit {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
 
+  toggleEditMode() {
+    this.isEditing = !this.isEditing;
+  }
+
   save(form: NgForm) {
     this.repository.saveUser(this.user);
     this.router.navigateByUrl("/user/profile");
+    this.toggleEditMode();
   }
 }

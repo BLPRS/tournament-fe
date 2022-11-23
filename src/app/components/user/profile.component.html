@@ -29,6 +29,7 @@
           <input
             type="text"
             class="form-control"
+            [disabled]="!isEditing"
             id="firstName"
             name="firstName"
             required
@@ -41,6 +42,7 @@
           <input
             type="text"
             class="form-control"
+            [disabled]="!isEditing"
             id="lastName"
             name="lastName"
             required
@@ -53,6 +55,7 @@
           <input
             type="email"
             class="form-control"
+            [disabled]="!isEditing"
             id="email"
             name="email"
             required
@@ -65,6 +68,7 @@
           <input
             type="text"
             class="form-control"
+            [disabled]="!isEditing"
             id="username"
             name="username"
             required
@@ -78,6 +82,7 @@
             <input
               [type]="passwordType"
               class="form-control"
+              [disabled]="!isEditing"
               id="password"
               name="password"
               required
@@ -101,6 +106,7 @@
             <input
               [type]="passwordType"
               class="form-control"
+              [disabled]="!isEditing"
               id="passwordConfirm"
               name="passwordConfirm"
               required
@@ -116,7 +122,18 @@
             </span>
           </div>
         </div>
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-primary" type="button" *ngIf="!isEditing" (click)="toggleEditMode()">
+          <i class="fa-regular fa-pen-to-square"></i>
+          Edit
+        </button>
+        <button class="btn btn-success" type="submit" *ngIf="isEditing">
+          <i class="fa-solid fa-pen-to-square"></i>
+          Update Information
+        </button>
+        <button class="btn btn-secondary" type="button" *ngIf="isEditing" (click)="toggleEditMode()">
+          <i class="fa-solid fa-rotate-left"></i>
+          Cancel
+        </button>
       </form>
     </div>
   </div>
