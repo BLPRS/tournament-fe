@@ -13,9 +13,11 @@ export class ListComponent implements OnInit {
   title = "Tournament List";
 
   constructor(
-    private repository: TournamentRepository,
+    public repository: TournamentRepository,
     private router: Router
-  ) { }
+  ) { 
+    repository.setTournaments();
+   }
 
   ngOnInit(): void { }
 
