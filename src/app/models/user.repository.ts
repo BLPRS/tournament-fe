@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { ResponseModel } from "./response.model";
 import { RestDataSource } from "./rest.datasource";
 import { User } from "./user.model";
 
@@ -22,5 +23,14 @@ export class UserRepository {
     });
   }
 
-  async saveUser(user: User) {}
+  async saveUser(user: User) {
+    this.dataSource.updateUser(user).subscribe(resp => {
+      const response = resp as ResponseModel;
+      if (response.success) {
+        response.message;
+      } else {
+        alert(`Error: ${response.message}`);
+      }
+    })
+  }
 }

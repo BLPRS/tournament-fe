@@ -111,6 +111,7 @@ export class RestDataSource {
     return this.http
       .put<ResponseModel>(
         `${this.baseUrl}/users/edit/${user._id}`,
+        user,
         this.provideToken()
       )
       .pipe(

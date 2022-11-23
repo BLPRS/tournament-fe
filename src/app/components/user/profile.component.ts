@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
+import { Router } from "@angular/router";
 import { User } from "src/app/models/user.model";
 import { UserRepository } from "src/app/models/user.repository";
 
@@ -14,7 +15,7 @@ export class ProfileComponent implements OnInit {
   public message: string;
   isPasswordVisible: boolean = false;
 
-  constructor(public repository: UserRepository) {
+  constructor(public repository: UserRepository, private router: Router) {
     this.repository.setUser();
   }
 
@@ -33,5 +34,8 @@ export class ProfileComponent implements OnInit {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
 
-  save(form: NgForm) {}
+  save(form: NgForm) {
+    this.repository.saveUser(this.user);
+    this.router.navigateByUrl("/user/profile");
+  }
 }
