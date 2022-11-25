@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Tournament } from "src/app/models";
+import { hasStarted } from "src/app/utils";
 import { TournamentRepository } from "src/app/models/tournament.repository";
 
 @Component({
@@ -14,9 +15,9 @@ export class IndexComponent implements OnInit {
     repository.setTournaments();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   get tournamentList(): Tournament[] {
-    return this.repository.getTournaments().filter((t) => !t.deleted);
+    return this.repository.getTournaments().filter((t) => !t.deleted && t.startedAt !== null && hasStarted(new Date(t.startedAt)));
   }
 }

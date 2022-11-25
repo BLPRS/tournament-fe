@@ -14,7 +14,11 @@ import { AuthGuard } from "./components/auth/auth.guard";
 
 const routesDefaultLayout: Routes = [
   { path: "", component: IndexComponent },
-  { path: "tournament/list", component: ListComponent },
+  {
+    path: "tournament/list",
+    component: ListComponent,
+    canActivate: [AuthGuard],
+  },
   { path: "tournament/view/:id", component: ViewComponent },
   {
     path: "tournament/:mode",
@@ -56,4 +60,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
