@@ -5,9 +5,7 @@ import { catchError, map } from "rxjs/operators";
 import { Tournament } from "./tournament.model";
 import { ResponseModel } from "./response.model";
 import { User } from "./user.model";
-
-const PROTOCOL = "http";
-const PORT = 3000;
+import { environment } from "src/environments/environment";
 
 @Injectable()
 export class RestDataSource {
@@ -15,7 +13,7 @@ export class RestDataSource {
   authToken: string;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = `${PROTOCOL}://${location.hostname}:${PORT}`;
+    this.baseUrl = environment.apiURL;
   }
 
   // Tournament APIs
