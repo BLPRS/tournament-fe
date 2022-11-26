@@ -4,7 +4,7 @@ import { ObjectID } from 'bson'
 import { hasStarted } from 'src/app/utils';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Tournament } from 'src/app/models/tournament.model';
-import { UserRepository } from "src/app/models/user.repository";
+import { AuthService } from "src/app/models/auth.service";
 import { TournamentRepository } from 'src/app/models/tournament.repository';
 
 @Component({
@@ -22,7 +22,7 @@ export class AddEditComponent implements OnInit {
   constructor(
     private repository: TournamentRepository,
     private router: Router,
-    private user: UserRepository,
+    private auth: AuthService,
     private activeRoute: ActivatedRoute
   ) {
   }
@@ -64,8 +64,7 @@ export class AddEditComponent implements OnInit {
     // TODO: add validations to the form
     if (this.isParticipantValid) {
       if (!this.editing) {
-        // TODO: save the user session ID
-        this.tournament.owner = this.user.getUser._id;
+        this.tournament.owner = this.auth.userId;
         this.tournament.deleted = false;
         this.tournament.createdAt = Date.now();
       }
