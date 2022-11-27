@@ -5,6 +5,7 @@
       <div class="mt-2">
         <!-- TODO: this button cannot exist if you are not the owner of the tournament -->
         <button
+          *ngIf="isOwner && hasStarted"
           (click)="setCompleted(!tournament.completed)"
           class="btn btn-primary btn-sm float-end"
         >
@@ -17,8 +18,8 @@
       <!-- begin breadcrumb -->
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item">
+          <li class="breadcrumb-item"><a [routerLink]="'/'">Home</a></li>
+          <li class="breadcrumb-item" *ngIf="isOwner">
             <a [routerLink]="['/tournament', 'list']">My Tournaments</a>
           </li>
           <li class="breadcrumb-item active" aria-current="page">
@@ -40,13 +41,9 @@
     <!-- end bracket component -->
 
     <!-- TODO: this section cannot exist if you are not the owner of the tournament -->
-    <div class="col-12">
+    <div class="col-12" *ngIf="isOwner && !tournament.completed">
       <!-- begin actions -->
-      <button
-        *ngIf="!isReadOnly"
-        class="btn btn-primary mt-4"
-        (click)="saveTournament()"
-      >
+      <button class="btn btn-primary mt-4" (click)="saveTournament()">
         <i class="fa-solid fa-pen-to-square"></i>
         Save Changes
       </button>

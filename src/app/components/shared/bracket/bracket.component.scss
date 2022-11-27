@@ -23,11 +23,11 @@
 
           & > .connector {
             & > .bracket {
-              height: 6rem;
+              height: 7rem;
             }
 
             & > .line {
-              height: 3rem;
+              height: 3.5rem;
             }
           }
         }
@@ -36,7 +36,7 @@
       &.of-4 {
         & > .box {
           & > .matchups .matchup:not(:last-child) {
-            margin-bottom: 8rem;
+            margin-bottom: 9rem;
           }
 
           & > .connector {
@@ -148,7 +148,7 @@
 
             & > .participant {
               width: 10rem;
-              height: 2rem;
+              height: 2.25rem;
               border-radius: $border-radius;
               background-color: var(--color-secondary-light);
 
@@ -163,8 +163,8 @@
               }
 
               & > span {
-                line-height: 2rem;
-                font-size: $font-size * 0.875;
+                line-height: 2.25rem;
+                font-size: $font-size * 1;
                 padding: 0 $default-distance * 0.5;
               }
             }
