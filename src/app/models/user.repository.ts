@@ -8,9 +8,10 @@ export class UserRepository {
   private user: User = new User();
   profileReady: boolean = false;
 
-  constructor(private dataSource: RestDataSource) { }
+  constructor(private dataSource: RestDataSource) {}
 
-  get getUser(): User {
+  getUser(): User {
+    console.log(this.user);
     return this.user;
   }
 

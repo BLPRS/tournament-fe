@@ -16,7 +16,7 @@
       <!-- begin breadcrumb -->
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a [routerLink]="'/'">Home</a></li>
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
           <li class="breadcrumb-item active" aria-current="page">
             My Tournaments
           </li>
@@ -24,11 +24,9 @@
       </nav>
       <!-- end breadcrumb -->
 
-      <!-- begin loading -->
-      <loading-placeholder
-        *ngIf="!this.repository.listReady"
-      ></loading-placeholder>
-      <!-- end loading -->
+      <p class="placeholder-glow" *ngIf="!this.repository.listReady">
+        <span class="placeholder col-12"></span>
+      </p>
 
       <!-- begin list tournament -->
       <div class="table-responsive" *ngIf="this.repository.listReady">
@@ -39,21 +37,18 @@
               <th>Name</th>
               <th class="text-center">No. of players</th>
               <th class="text-center">Start Date</th>
-              <th class="text-center">Done</th>
               <th class="text-center" colspan="3">Actions</th>
             </tr>
           </thead>
 
-          <tbody *ngIf="tournamentList.length > 0">
+          <tbody>
+            <!-- TODO: it should list only the tournaments of the user -->
+            <!-- TODO: set some content when there is no tournament -->
             <tr *ngFor="let item of tournamentList; let i = index">
               <td class="text-center">#{{ i + 1 }}</td>
               <td>{{ item.name }}</td>
               <td class="text-center">{{ item.participants?.length }}</td>
               <td class="text-center">{{ item.startedAt }}</td>
-              <td class="text-center">
-                <span *ngIf="item.completed">Yes</span>
-                <span *ngIf="!item.completed">No</span>
-              </td>
               <td class="text-center">
                 <button
                   [routerLink]="['/tournament', 'view', item._id]"
@@ -80,13 +75,6 @@
               </td>
             </tr>
           </tbody>
-          <!-- begin empty table -->
-          <tbody *ngIf="tournamentList.length === 0">
-            <tr>
-              <td class="text-center" colspan="5">No records to display :(</td>
-            </tr>
-          </tbody>
-          <!-- end empty table -->
         </table>
       </div>
       <!-- end list tournament -->

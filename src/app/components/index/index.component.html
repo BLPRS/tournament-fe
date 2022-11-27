@@ -15,20 +15,11 @@
 
       <br />
 
-      <!-- begin loading -->
-      <loading-placeholder
-        *ngIf="!this.repository.listReady"
-      ></loading-placeholder>
-      <!-- end loading -->
+      <p class="placeholder-glow" *ngIf="!this.repository.listReady">
+        <span class="placeholder col-12"></span>
+      </p>
 
-      <!-- begin no record found -->
-      <no-record-placeholder
-        *ngIf="this.repository.listReady && tournamentList.length === 0"
-      ></no-record-placeholder>
-      <!-- end no record found -->
-
-      <!-- begin list of tournaments -->
-      <div class="row" *ngIf="this.repository.listReady">
+      <div *ngIf="this.repository.listReady">
         <div
           class="col-sm-6 col-md-4 col-lg-3"
           *ngFor="let item of tournamentList"
@@ -56,7 +47,6 @@
           </a>
         </div>
       </div>
-      <!-- end list of tournaments -->
     </div>
   </div>
 </div>

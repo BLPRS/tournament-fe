@@ -3,12 +3,10 @@ import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { ProfileComponent } from "./profile.component";
-import { SharedModule } from '../shared';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, RouterModule,
-    SharedModule],
+  imports: [BrowserModule, FormsModule, RouterModule],
   declarations: [ProfileComponent],
   exports: [ProfileComponent],
 })
-export class UserModule { }
+export class UserModule {}
