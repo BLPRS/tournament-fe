@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { BracketComponent } from './bracket';
-import { FeedbackComponent } from './feedback';
-import { NoRecordComponent, LoadingComponent } from './placeholder';
 
 @NgModule({
   imports: [
@@ -12,16 +10,10 @@ import { NoRecordComponent, LoadingComponent } from './placeholder';
     RouterModule
   ],
   declarations: [
-    BracketComponent,
-    NoRecordComponent,
-    LoadingComponent,
-    FeedbackComponent
+    BracketComponent
   ],
   exports: [
     BracketComponent,
-    NoRecordComponent,
-    LoadingComponent,
-    FeedbackComponent,
     CommonModule,
     RouterModule,
   ]

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ObjectID } from 'bson'
-import { hasStarted } from 'src/app/utils';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Tournament } from 'src/app/models/tournament.model';
-import { AuthService } from "src/app/models/auth.service";
 import { TournamentRepository } from 'src/app/models/tournament.repository';
 
 @Component({
@@ -14,15 +12,13 @@ import { TournamentRepository } from 'src/app/models/tournament.repository';
 })
 export class AddEditComponent implements OnInit {
   title: string = "Create new Tournament";
-  count: number = 0;
   isSubmitted: boolean = false;
   editing: boolean = false;
-  tournament: Tournament = new Tournament();
+  item: Tournament = new Tournament();
 
   constructor(
     private repository: TournamentRepository,
     private router: Router,
-    private auth: AuthService,
     private activeRoute: ActivatedRoute
   ) {
   }
@@ -37,25 +33,21 @@ export class AddEditComponent implements OnInit {
 
     // Edit
     if (this.editing) {
-      this.tournament = this.repository.getItem(this.activeRoute.snapshot.params["id"]);
-      this.count = this.tournament.participants?.length || 0;
+      this.item = this.repository.getItem(this.activeRoute.snapshot.params["id"]);
     }
   }
 
-  get hasStarted(): boolean {
-    return this.tournament.startedAt !== null && hasStarted(new Date(this.tournament.startedAt));
-  }
-
   get isReadOnly(): boolean {
-    return this.tournament.completed || this.hasStarted;
+    // TODO: if the tournament is done or ongoing, the participants cannot be deleted
+    return false;
   }
 
   get isDisabled(): boolean {
-    return this.tournament?.participants?.length === 16 ?? false;
+    return this.item?.participants?.length === 16 ?? false;
   }
 
   get isParticipantValid(): boolean {
-    const { length = 0 } = this.tournament?.participants || {};
+    const { length = 0 } = this.item?.participants || {};
     return length > 0 && length % 8 === 0;
   }
 
@@ -64,13 +56,14 @@ export class AddEditComponent implements OnInit {
     // TODO: add validations to the form
     if (this.isParticipantValid) {
       if (!this.editing) {
-        this.tournament.owner = this.auth.userId;
-        this.tournament.deleted = false;
-        this.tournament.createdAt = Date.now();
+        this.#generateTournament();
+        // TODO: save the user session ID
+        this.item.createdBy = "";
+        this.item.deleted = false;
+        this.item.createdAt = Date.now();
       }
-      this.#generateTournament();
-      // console.log(this.tournament);
-      this.repository.saveTournament(this.tournament);
+      console.log(this.item);
+      this.repository.saveTournament(this.item);
       this.router.navigateByUrl("/tournament/list");
     }
   }
@@ -81,13 +74,13 @@ export class AddEditComponent implements OnInit {
   }
 
   addParticipant() {
-    const { length = 0 } = this.tournament?.participants || {};
+    const { length = 0 } = this.item?.participants || {};
     if (length < 16) {
-      this.tournament.participants = length === 0 ? [] : this.tournament.participants;
+      this.item.participants = length === 0 ? [] : this.item.participants;
       const quantity = length % 8 === 0 ? 8 : 8 - length % 8;
       for (let i = 0; i < quantity; i++) {
         const participant = { id: new ObjectID().toString(), name: "" };
-        this.tournament.participants.push(participant);
+        this.item.participants.push(participant);
       }
     }
   }
@@ -95,35 +88,33 @@ export class AddEditComponent implements OnInit {
   saveParticipant(index: number, event: any) {
     const { value } = event.target;
     if (value) {
-      this.tournament.participants[index].name = value;
+      this.item.participants[index].name = value;
     } else {
       this.removeParticipant(index);
     }
   }
 
   removeParticipant(index: number) {
-    this.tournament.participants.splice(index, 1);
+    this.item.participants.splice(index, 1);
   }
 
   #generateTournament() {
-    const { length } = this.tournament.participants;
-    if (this.count === length) return;
+    const { length } = this.item.participants;
     if (length === 16) {
-      this.tournament.rounds.r16 = this.#generateRound(8);
-      this.tournament.rounds.r8 = this.#generateEmptyRound(4);
+      this.item.rounds.r16 = this.#generateRound(8);
+      this.item.rounds.r8 = this.#generateEmptyRound(4);
     } else if (length === 8) {
-      this.tournament.rounds.r16 = [];
-      this.tournament.rounds.r8 = this.#generateRound(4);
+      this.item.rounds.r8 = this.#generateRound(4);
     }
-    this.tournament.rounds.r4 = this.#generateEmptyRound(2);
-    this.tournament.rounds.r2 = this.#generateEmptyRound(1);
+    this.item.rounds.r4 = this.#generateEmptyRound(2);
+    this.item.rounds.r2 = this.#generateEmptyRound(1);
   }
 
   #generateRound(count: number) {
     let jump = 0;
     return Array.from({ length: count }, (_, i) => {
       const index = jump++ + i;
-      return { x: this.tournament.participants[index].id, y: this.tournament.participants[index + 1].id, winner: -1 }
+      return { x: this.item.participants[index].id, y: this.item.participants[index + 1].id, winner: -1 }
     });
   }
 

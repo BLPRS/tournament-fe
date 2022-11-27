@@ -11,12 +11,13 @@ import { User } from "src/app/models/user.model";
 })
 export class RegisterComponent implements OnInit {
   public user: User = new User();
+  public confirmPassword: string;
   public message: string;
   isPasswordVisible: boolean = false;
 
-  constructor(private router: Router, private auth: AuthService) { }
+  constructor(private router: Router, private auth: AuthService) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   get passwordType(): string {
     return this.isPasswordVisible ? "text" : "password";
@@ -28,15 +29,19 @@ export class RegisterComponent implements OnInit {
 
   signup(form: NgForm) {
     if (form.valid) {
-      this.auth.signup(this.user).subscribe(response => {
-        console.log(response);
+      if (this.user.password === this.confirmPassword) {
+        this.auth.signup(this.user).subscribe(response => {
+          console.log(response);
 
-        if (response.success) {
-          alert(response.message);
-          this.router.navigateByUrl("auth/login");
-        }
-        this.message = response.message;
-      })
+          if (response.success) {
+            alert(response.message);
+            this.router.navigateByUrl("auth/login");
+          }
+          this.message = response.message;
+        })
+      } else {
+        this.message = "Password do not match";
+      }
     } else {
       this.message = "Invalid Form Data"
     }

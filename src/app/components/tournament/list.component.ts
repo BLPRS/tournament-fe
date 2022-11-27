@@ -1,9 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { AuthService } from 'src/app/models/auth.service';
 import { Tournament } from "src/app/models/tournament.model";
 import { TournamentRepository } from "src/app/models/tournament.repository";
-import { toDateString } from 'src/app/utils';
+import { toDateString } from '../../utils';
 
 @Component({
   selector: "app-tournament-list",
@@ -15,16 +14,15 @@ export class ListComponent implements OnInit {
 
   constructor(
     public repository: TournamentRepository,
-    private auth: AuthService,
     private router: Router
-  ) {
+  ) { 
     repository.setTournaments();
-  }
+   }
 
   ngOnInit(): void { }
 
   get tournamentList(): Tournament[] {
-    return this.repository.getTournaments().filter(t => t.owner.id === this.auth.userId);
+    return this.repository.getTournaments();
   }
 
   toDateString(value: any) {
