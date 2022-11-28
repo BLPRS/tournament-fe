@@ -11,7 +11,6 @@ import { UserRepository } from "src/app/models/user.repository";
 })
 export class ProfileComponent implements OnInit {
   public user: User;
-  public confirmPassword: string;
   public message: string;
   isPasswordVisible: boolean = false;
   isEditing: boolean = false;
@@ -20,10 +19,10 @@ export class ProfileComponent implements OnInit {
     this.repository.setUser();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   get userProfile(): User {
-    this.user = this.repository.getUser();
+    this.user = this.repository.getUser;
     return this.user;
   }
 

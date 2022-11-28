@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { hasStarted } from 'src/app/utils';
 import { Tournament } from 'src/app/models';
+import { AuthService } from "src/app/models/auth.service";
 import { TournamentRepository } from 'src/app/models/tournament.repository';
 
 @Component({
@@ -14,6 +16,7 @@ export class ViewComponent implements OnInit {
 
   constructor(private repository: TournamentRepository,
     private router: Router,
+    private auth: AuthService,
     private activeRoute: ActivatedRoute) {
   }
 
@@ -26,13 +29,21 @@ export class ViewComponent implements OnInit {
     }
   }
 
+  get isOwner(): boolean {
+    return this.auth.userId === this.tournament.owner.id;
+  }
+
+  get hasStarted(): boolean {
+    return this.tournament.startedAt !== null && hasStarted(new Date(this.tournament.startedAt));
+  }
+
   get isReadOnly(): boolean {
-    // TODO: if the start date is bigger than the current date, the tournament can start
-    return true;
+    return !this.isOwner || this.tournament.completed || !this.hasStarted;
   }
 
   setCompleted(isCompleted: boolean) {
     this.tournament.completed = isCompleted;
+    this.repository.saveTournament(this.tournament);
   }
 
   saveTournament() {
