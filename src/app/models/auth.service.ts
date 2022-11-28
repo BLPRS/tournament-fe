@@ -7,20 +7,29 @@ import { User } from "./user.model";
 
 @Injectable()
 export class AuthService {
+  public userId: string;
   public username: string;
   private _redirectUrl: string;
 
-  constructor(private dataSource: RestDataSource) {}
+  constructor(private dataSource: RestDataSource) { }
 
   authenticate(username: string, password: string): Observable<ResponseModel> {
     return this.dataSource.authenticate(username, password).pipe(
       map((response) => {
         if (response.success) {
+          this.getUser(); // TODO: remove later
           this.username = username;
         }
         return response;
       })
     );
+  }
+
+  // TODO: must be done properly
+  getUser(): void {
+    this.dataSource.getUser().subscribe((response) => {
+      this.userId = response._id
+    });
   }
 
   signup(user: User): Observable<ResponseModel> {
