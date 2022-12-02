@@ -10,10 +10,17 @@ import { environment } from "src/environments/environment";
 @Injectable()
 export class RestDataSource {
   baseUrl: string;
-  authToken: string;
 
   constructor(private http: HttpClient) {
     this.baseUrl = environment.apiURL;
+  }
+
+  get authToken(): string | null {
+    return sessionStorage.getItem('authToken');
+  }
+
+  set authToken(value: string | null) {
+    sessionStorage.setItem('authToken', value);
   }
 
   // Tournament APIs

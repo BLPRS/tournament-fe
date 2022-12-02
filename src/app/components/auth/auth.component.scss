@@ -13,10 +13,10 @@
     width: 100%;
     max-width: 750px;
     position: absolute;
-    background-color: #ffffff;
     border-radius: $border-radius;
     padding: $default-distance * 2;
     transform: translate(-50%, -50%);
+    background-color: var(--color-white);
 
     & > .brand {
       height: 50px;

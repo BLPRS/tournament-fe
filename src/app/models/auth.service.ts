@@ -7,11 +7,25 @@ import { User } from "./user.model";
 
 @Injectable()
 export class AuthService {
-  public userId: string;
-  public username: string;
   private _redirectUrl: string;
 
   constructor(private dataSource: RestDataSource) { }
+
+  get userId(): string | null {
+    return sessionStorage.getItem('userId');
+  }
+
+  set userId(value: string | null) {
+    sessionStorage.setItem("userId", value);
+  }
+
+  get username(): string | null {
+    return sessionStorage.getItem('username');
+  }
+
+  set username(value: string | null) {
+    sessionStorage.setItem('username', value);
+  }
 
   authenticate(username: string, password: string): Observable<ResponseModel> {
     return this.dataSource.authenticate(username, password).pipe(
@@ -28,7 +42,7 @@ export class AuthService {
   // TODO: must be done properly
   getUser(): void {
     this.dataSource.getUser().subscribe((response) => {
-      this.userId = response._id
+      this.userId = response._id;
     });
   }
 
@@ -37,7 +51,7 @@ export class AuthService {
   }
 
   get authenticated(): boolean {
-    return !["", null, undefined].includes(this.dataSource.authToken);
+    return !["", 'null', null, undefined].includes(this.dataSource.authToken);
   }
 
   get redirectUrl(): string {
@@ -51,6 +65,7 @@ export class AuthService {
   }
 
   clear() {
+    this.userId = null;
     this.username = null;
     this.dataSource.authToken = null;
   }

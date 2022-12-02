@@ -1,7 +1,16 @@
 :root {
+  --color-primary: var(--bs-primary);
+
   --color-green: var(--bs-success);
   --color-white: var(--bs-white);
 
   --color-secondary: var(--bs-secondary);
   --color-secondary-light: var(--bs-light);
+
+  --color-theme: var(--bs-white);
+
+  --color-font: #404040;
+  --color-font-light: #606060;
+
+  --color-background: #f2f2f2;
 }

@@ -2,11 +2,11 @@
 
 .tournament {
   display: block;
-  color: #404040;
   text-decoration: none;
-  background-color: white;
+  color: var(--color-font);
   border-radius: $border-radius;
   padding: $default-distance * 1;
+  background-color: var(--color-theme);
   margin-bottom: $default-distance * 1.375;
 
   & > .name {
@@ -34,8 +34,8 @@
     & > .date,
     & > .participants {
       & > i {
-        color: #606060;
         font-size: $font-size * 0.75;
+        color: var(--color-font-light);
         margin-right: $default-distance * 0.5;
       }
     }
