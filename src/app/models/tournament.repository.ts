@@ -5,25 +5,32 @@ import { Tournament } from "./tournament.model";
 
 @Injectable()
 export class TournamentRepository {
-  private tournaments: Tournament[] = [];
   listReady: boolean = false;
 
-  constructor(private dataSource: RestDataSource) {}
+  constructor(private dataSource: RestDataSource) { }
+
+  get _tournaments() {
+    return JSON.parse(sessionStorage.getItem('tournaments')) ?? [];
+  }
+
+  set _tournaments(value: Tournament[] | null) {
+    sessionStorage.setItem('tournaments', JSON.stringify(value));
+  }
 
   getTournaments(): Tournament[] {
-    return this.tournaments;
+    return this._tournaments;
   }
 
   setTournaments() {
     this.listReady = false;
     this.dataSource.getTournamentList().subscribe((data) => {
-      this.tournaments = data;
+      this._tournaments = data;
       this.listReady = true;
     });
   }
 
   getItem(id: string): Tournament {
-    return { ...this.tournaments.find((trn) => trn._id === id)! };
+    return { ...this.getTournaments().find((trn) => trn._id === id)! };
   }
 
   async saveTournament(item: Tournament) {
@@ -31,7 +38,7 @@ export class TournamentRepository {
     if (item._id === null || item._id === "" || item._id === undefined) {
       this.dataSource.insertTournament(item).subscribe((response) => {
         if (response._id) {
-          this.tournaments.push(response);
+          this._tournaments.push(response);
         } else {
           let error = response as ResponseModel;
           alert(`Error: ${error.message}`);
@@ -41,8 +48,8 @@ export class TournamentRepository {
       this.dataSource.updateTournament(item).subscribe((resp) => {
         let response = resp as ResponseModel;
         if (response.success === true) {
-          this.tournaments.splice(
-            this.tournaments.findIndex((trn) => trn._id === item._id),
+          this._tournaments.splice(
+            this._tournaments.findIndex((trn) => trn._id === item._id),
             1,
             item
           );
@@ -56,8 +63,8 @@ export class TournamentRepository {
   deleteTournament(id: string) {
     this.dataSource.deleteTournament(id).subscribe((response) => {
       if (response.success) {
-        this.tournaments.splice(
-          this.tournaments.findIndex((trn) => trn._id === id),
+        this._tournaments.splice(
+          this._tournaments.findIndex((trn) => trn._id === id),
           1
         );
       } else {
