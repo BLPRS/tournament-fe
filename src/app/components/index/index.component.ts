@@ -18,6 +18,14 @@ export class IndexComponent implements OnInit {
   ngOnInit(): void { }
 
   get tournamentList(): Tournament[] {
-    return this.repository.getTournaments().filter((t) => !t.deleted && t.startedAt !== null && hasStarted(new Date(t.startedAt)));
+    return this.repository
+      .getTournaments()
+      .filter(
+        (t) =>
+          !t.deleted &&
+          t.startedAt !== null
+          // t.startedAt !== null &&
+          // hasStarted(new Date(t.startedAt))
+      );
   }
 }
