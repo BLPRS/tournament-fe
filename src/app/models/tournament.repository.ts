@@ -5,17 +5,10 @@ import { Tournament } from "./tournament.model";
 
 @Injectable()
 export class TournamentRepository {
+  private _tournaments: Tournament[] = [];
   listReady: boolean = false;
 
-  constructor(private dataSource: RestDataSource) { }
-
-  get _tournaments() {
-    return JSON.parse(sessionStorage.getItem('tournaments')) ?? [];
-  }
-
-  set _tournaments(value: Tournament[] | null) {
-    sessionStorage.setItem('tournaments', JSON.stringify(value));
-  }
+  constructor(private dataSource: RestDataSource) {}
 
   getTournaments(): Tournament[] {
     return this._tournaments;
