@@ -13,9 +13,8 @@
     font-weight: 300;
     font-size: $font-size * 1;
 
-    i {
-      font-size: $font-size * 1;
-      margin-right: $default-distance * 0.5;
+    & > .badge {
+      float: right;
     }
   }
 

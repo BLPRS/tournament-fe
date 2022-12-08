@@ -91,7 +91,7 @@
               />
               <button
                 tabindex="-1"
-                [hidden]="isReadOnly"
+                *ngIf="!isReadOnly"
                 (click)="removeParticipant(i)"
                 class="btn btn-danger"
               >
@@ -124,6 +124,15 @@
             required
           />
         </div>
+
+        <!-- start date validation -->
+        <div *ngIf="isSubmitted" class="text-danger">
+          <div [hidden]="isStartDateValid">
+            The start date must be grater than today's date.
+          </div>
+        </div>
+        <!-- end start date validation -->
+
         <!-- end start date -->
         <br />
 

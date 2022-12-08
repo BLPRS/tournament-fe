@@ -14,17 +14,22 @@ export class ListComponent implements OnInit {
   title = "Tournament List";
 
   constructor(
-    public repository: TournamentRepository,
+    private repository: TournamentRepository,
     private auth: AuthService,
     private router: Router
   ) {
-    repository.setTournaments();
   }
 
-  ngOnInit(): void { }
+  async ngOnInit(): Promise<void> {
+    await this.repository.setTournaments();
+  }
 
   get tournamentList(): Tournament[] {
     return this.repository.getTournaments().filter(t => t.owner.id === this.auth.userId);
+  }
+
+  get isReady(): boolean {
+    return this.repository.listReady;
   }
 
   toDateString(value: any) {

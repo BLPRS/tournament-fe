@@ -15,5 +15,6 @@ body {
 body {
   min-height: 100%;
   position: relative;
+  overflow-x: hidden;
   background-color: var(--color-background) !important;
 }

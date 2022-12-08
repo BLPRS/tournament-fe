@@ -1,9 +1,38 @@
-.pointer-events-none {
-  pointer-events: none;
+.align-items-center {
+  align-items: center;
 }
 
 .c-pointer {
   cursor: pointer;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.d-inline-flex {
+  display: inline-flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.o-hidden {
+  overflow: hidden;
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.t-col-fit {
+  width: 1px;
+  white-space: nowrap;
 }
 
 .text-sm {

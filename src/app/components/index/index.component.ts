@@ -10,22 +10,26 @@ import { TournamentRepository } from "src/app/models/tournament.repository";
 })
 export class IndexComponent implements OnInit {
   title = "Home";
+  completed: boolean = false;
 
-  constructor(public repository: TournamentRepository) {
-    repository.setTournaments();
+  constructor(private repository: TournamentRepository) {
   }
 
-  ngOnInit(): void { }
+  async ngOnInit(): Promise<void> {
+    await this.repository.setTournaments();
+  }
+
+  get isReady(): boolean {
+    return this.repository.listReady;
+  }
 
   get tournamentList(): Tournament[] {
-    return this.repository
-      .getTournaments()
-      .filter(
-        (t) =>
-          !t.deleted &&
-          t.startedAt !== null
-          // t.startedAt !== null &&
-          // hasStarted(new Date(t.startedAt))
-      );
+    return this.repository.getTournaments().filter(
+      (t) =>
+        !t.deleted &&
+        t.completed === this.completed &&
+        t.startedAt !== null &&
+        hasStarted(new Date(t.startedAt))
+    );
   }
 }

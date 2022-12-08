@@ -5,11 +5,19 @@
       <div class="mt-2">
         <!-- TODO: this button cannot exist if you are not the owner of the tournament -->
         <button
-          *ngIf="isOwner && hasStarted"
-          (click)="setCompleted(!tournament.completed)"
+          *ngIf="isOwner && !tournament.completed"
+          (click)="saveTournament()"
           class="btn btn-primary btn-sm float-end"
         >
-          {{ tournament.completed ? "Enable Editing" : "Set as Completed" }}
+          <i class="fa-solid fa-pen-to-square"></i>
+          Save Changes
+        </button>
+        <button
+          *ngIf="tournament.completed"
+          (click)="viewSummary()"
+          class="btn btn-primary btn-sm float-end"
+        >
+          View Summary
         </button>
         <h3 class="mt-2">{{ tournament.name }}</h3>
       </div>
@@ -40,14 +48,12 @@
     </div>
     <!-- end bracket component -->
 
-    <!-- TODO: this section cannot exist if you are not the owner of the tournament -->
-    <div class="col-12" *ngIf="isOwner && !tournament.completed">
-      <!-- begin actions -->
-      <button class="btn btn-primary mt-4" (click)="saveTournament()">
-        <i class="fa-solid fa-pen-to-square"></i>
-        Save Changes
-      </button>
-      <!-- end actions -->
-    </div>
+    <!-- begin alert -->
+    <app-alert
+      [tournament]="tournament"
+      [visible]="visible"
+      (close)="onClose($event)"
+    ></app-alert>
+    <!-- end alert -->
   </div>
 </div>

@@ -1,0 +1,45 @@
+<div class="alert-popup" [class.active]="visible">
+  <div class="alert-content">
+    <div class="alert-header">
+      {{ title }}
+    </div>
+    <div class="alert-body">
+      <div class="alert-wrapper">
+        <div class="table-responsive" *ngFor="let round of keys">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th class="text-center">Match</th>
+                <th colspan="2" class="text-center">
+                  {{ getRoundName(round) }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let match of getRound(round); let i = index">
+                <th class="t-col-fit text-center">#{{ i + 1 }}</th>
+                <td
+                  class="text-center"
+                  [class.table-primary]="match.winner === 0"
+                >
+                  {{ getParticipant(match.x).name }}
+                </td>
+                <td
+                  class="text-center"
+                  [class.table-primary]="match.winner === 1"
+                >
+                  {{ getParticipant(match.y).name }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="alert-footer">
+      <button type="button" class="btn btn-secondary" (click)="dismissAlert()">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
