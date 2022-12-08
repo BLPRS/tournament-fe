@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { AlertComponent } from './alert';
 import { BracketComponent } from './bracket';
 import { FeedbackComponent } from './feedback';
 import { NoRecordComponent, LoadingComponent } from './placeholder';
@@ -12,12 +13,14 @@ import { NoRecordComponent, LoadingComponent } from './placeholder';
     RouterModule
   ],
   declarations: [
+    AlertComponent,
     BracketComponent,
     NoRecordComponent,
     LoadingComponent,
     FeedbackComponent
   ],
   exports: [
+    AlertComponent,
     BracketComponent,
     NoRecordComponent,
     LoadingComponent,

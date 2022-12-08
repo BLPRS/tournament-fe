@@ -12,6 +12,7 @@ import { TournamentRepository } from 'src/app/models/tournament.repository';
 })
 export class ViewComponent implements OnInit {
   tournamentId: string;
+  visible: boolean = false;
   tournament: Tournament = new Tournament();
 
   constructor(private repository: TournamentRepository,
@@ -20,7 +21,8 @@ export class ViewComponent implements OnInit {
     private activeRoute: ActivatedRoute) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.repository.setTournaments();
     this.tournamentId = this.activeRoute.snapshot.params["id"];
     if (this.tournamentId) {
       this.tournament = this.repository.getItem(this.tournamentId);
@@ -30,7 +32,7 @@ export class ViewComponent implements OnInit {
   }
 
   get isOwner(): boolean {
-    return this.auth.userId === this.tournament.owner.id;
+    return this.auth.authenticated && this.auth.userId === this.tournament.owner.id;
   }
 
   get hasStarted(): boolean {
@@ -41,12 +43,23 @@ export class ViewComponent implements OnInit {
     return !this.isOwner || this.tournament.completed || !this.hasStarted;
   }
 
-  setCompleted(isCompleted: boolean) {
-    this.tournament.completed = isCompleted;
-    this.repository.saveTournament(this.tournament);
+  get hasWinner(): boolean {
+    return this.tournament.rounds.r2 && this.tournament.rounds.r2[0].winner !== -1
   }
 
   saveTournament() {
+    if (this.hasWinner) {
+      this.tournament.completed = true;
+      this.viewSummary();
+    }
     this.repository.saveTournament(this.tournament);
+  }
+
+  viewSummary() {
+    this.visible = true;
+  }
+
+  onClose(value: boolean) {
+    this.visible = value;
   }
 }

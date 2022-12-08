@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ObjectID } from 'bson'
-import { hasStarted } from 'src/app/utils';
+import { hasStarted, setTimeToZero } from 'src/app/utils';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Tournament } from 'src/app/models/tournament.model';
 import { AuthService } from "src/app/models/auth.service";
@@ -27,7 +27,9 @@ export class AddEditComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.repository.setTournaments();
+
     // Delete
     if (this.activeRoute.snapshot.params["mode"] === "delete") {
       this.deleteItem(this.activeRoute.snapshot.params["id"]);
@@ -59,10 +61,14 @@ export class AddEditComponent implements OnInit {
     return length > 0 && length % 8 === 0;
   }
 
-  save(form: NgForm) {
+  get isStartDateValid(): boolean {
+    return this.tournament.startedAt !== null && setTimeToZero(new Date(this.tournament.startedAt + 'T10:00:00')) >= setTimeToZero(new Date());
+  }
+
+  async save(form: NgForm) {
     this.isSubmitted = true;
     // TODO: add validations to the form
-    if (this.isParticipantValid) {
+    if (this.isParticipantValid && this.isStartDateValid) {
       if (!this.editing) {
         this.tournament.owner = this.auth.userId;
         this.tournament.deleted = false;
@@ -70,7 +76,7 @@ export class AddEditComponent implements OnInit {
       }
       this.#generateTournament();
       // console.log(this.tournament);
-      this.repository.saveTournament(this.tournament);
+      await this.repository.saveTournament(this.tournament);
       this.router.navigateByUrl("/tournament/list");
     }
   }

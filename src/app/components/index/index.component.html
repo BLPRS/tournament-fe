@@ -2,33 +2,46 @@
   <div class="row">
     <div class="col-12">
       <!-- begin header -->
-      <div class="mt-2">
-        <a
-          [routerLink]="['/tournament', 'add']"
-          class="btn btn-primary btn-sm float-end"
-        >
-          Create new Tournament
-        </a>
-        <h3>Ongoing Tournaments</h3>
+      <div class="d-flex flex-wrap mt-2">
+        <h3 class="mr-auto">
+          {{ completed ? "Completed Tournaments" : "Ongoing Tournaments" }}
+        </h3>
+        <div class="d-inline-flex align-items-center">
+          <div class="form-check">
+            <input
+              type="checkbox"
+              id="completed"
+              name="completed"
+              class="form-check-input"
+              [(ngModel)]="completed"
+            />
+            <label class="form-check-label" for="completed"> Completed </label>
+          </div>
+          <span>&nbsp;&nbsp;</span>
+          <a
+            [routerLink]="['/tournament', 'add']"
+            class="btn btn-primary btn-sm"
+          >
+            Create new Tournament
+          </a>
+        </div>
       </div>
       <!-- end header -->
 
       <br />
 
       <!-- begin loading -->
-      <loading-placeholder
-        *ngIf="!this.repository.listReady"
-      ></loading-placeholder>
+      <loading-placeholder *ngIf="!this.isReady"></loading-placeholder>
       <!-- end loading -->
 
       <!-- begin no record found -->
       <no-record-placeholder
-        *ngIf="this.repository.listReady && tournamentList.length === 0"
+        *ngIf="this.isReady && tournamentList.length === 0"
       ></no-record-placeholder>
       <!-- end no record found -->
 
       <!-- begin list of tournaments -->
-      <div class="row" *ngIf="this.repository.listReady">
+      <div class="row" *ngIf="this.isReady">
         <div
           class="col-sm-6 col-md-4 col-lg-3"
           *ngFor="let item of tournamentList"
@@ -38,12 +51,13 @@
             [routerLink]="['/tournament', 'view', item._id]"
           >
             <div class="name">
-              <i *ngIf="!item.completed" class="fas fa-light fa-square"></i>
-              <i
-                *ngIf="item.completed"
-                class="fas fa-light fa-square-check"
-              ></i>
               {{ item.name }}
+              <span *ngIf="item.completed" class="badge bg-primary"
+                >Completed</span
+              >
+              <span *ngIf="!item.completed" class="badge bg-secondary"
+                >Ongoing</span
+              >
             </div>
             <div class="information">
               <div class="participants">

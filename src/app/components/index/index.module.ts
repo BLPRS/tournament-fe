@@ -5,10 +5,9 @@ import { RouterModule } from "@angular/router";
 import { SharedModule } from '../shared';
 import { TournamentModule } from "../tournament/tournament.module";
 import { IndexComponent } from "./index.component";
-import { ProfileModule } from '../my-profile/my-profile.module';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, RouterModule, SharedModule, TournamentModule, ProfileModule],
+  imports: [BrowserModule, FormsModule, RouterModule, SharedModule, TournamentModule],
   declarations: [IndexComponent],
   exports: [IndexComponent],
 })

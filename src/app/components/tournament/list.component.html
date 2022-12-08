@@ -25,13 +25,11 @@
       <!-- end breadcrumb -->
 
       <!-- begin loading -->
-      <loading-placeholder
-        *ngIf="!this.repository.listReady"
-      ></loading-placeholder>
+      <loading-placeholder *ngIf="!this.isReady"></loading-placeholder>
       <!-- end loading -->
 
       <!-- begin list tournament -->
-      <div class="table-responsive" *ngIf="this.repository.listReady">
+      <div class="table-responsive" *ngIf="this.isReady">
         <table class="table table-bordered table-hover">
           <thead>
             <tr>
