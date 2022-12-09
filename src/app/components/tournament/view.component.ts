@@ -32,7 +32,7 @@ export class ViewComponent implements OnInit {
   }
 
   get isOwner(): boolean {
-    return this.auth.authenticated && this.auth.userId === this.tournament.owner.id;
+    return this.auth.authenticated && this.auth.userId === this.tournament.owner?.id;
   }
 
   get hasStarted(): boolean {

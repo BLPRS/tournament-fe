@@ -35,9 +35,15 @@
             placeholder="e.g. Tournament Y, Tournament Z"
             name="item"
             [(ngModel)]="tournament.name"
-            required
           />
         </div>
+
+        <!-- name validation -->
+        <div *ngIf="isSubmitted" class="text-danger">
+          <div [hidden]="isNameValid">The name cannot be empty.</div>
+        </div>
+        <!-- end name validation -->
+
         <!-- end name -->
 
         <br />
@@ -105,7 +111,8 @@
         <!-- participants validation -->
         <div *ngIf="isSubmitted" class="text-danger">
           <div [hidden]="isParticipantValid">
-            The number of participants must be multiple of 8.
+            The number of participants must be multiple of 8 and the names
+            cannot be empty.
           </div>
         </div>
         <!-- end participants validation -->
@@ -128,7 +135,7 @@
         <!-- start date validation -->
         <div *ngIf="isSubmitted" class="text-danger">
           <div [hidden]="isStartDateValid">
-            The start date must be grater than today's date.
+            The start date must be grater or equals to than today's date.
           </div>
         </div>
         <!-- end start date validation -->
@@ -170,7 +177,7 @@
           Submit
         </button>
         <span>&nbsp;</span>
-        <a [routerLink]="'/'" class="btn btn-secondary">
+        <a [routerLink]="['/tournament', 'list']" class="btn btn-secondary">
           <i class="fa-solid fa-rotate-left"></i>
           Cancel
         </a>
