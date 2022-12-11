@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Participant, Round, Tournament } from 'src/app/models';
 
 @Component({
@@ -11,6 +11,8 @@ export class AlertComponent implements OnInit {
   @Input() visible: boolean = false;
 
   @Output() close: EventEmitter<any> = new EventEmitter();
+
+  @ViewChild('elm') elm: ElementRef;
 
   constructor() { }
 
@@ -50,7 +52,9 @@ export class AlertComponent implements OnInit {
     return key === 'r16' ? 'Round of 16' : key === 'r8' ? 'Round of 8' : key === 'r4' ? 'Round of 4' : 'Round of 2';
   }
 
-  dismissAlert() {
-    this.close.emit(false);
+  dismissAlert(event: any) {
+    if (!event || event && this.elm.nativeElement === event.target) {
+      this.close.emit(false);
+    }
   }
 }

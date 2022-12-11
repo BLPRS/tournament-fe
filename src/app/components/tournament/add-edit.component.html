@@ -92,6 +92,7 @@
                 class="form-control"
                 placeholder="e.g. Peeter, Richard, Behnaz, Lucas"
                 required
+                (keypress)="$event.preventDefault()"
                 (blur)="saveParticipant(i, $event)"
                 [value]="participant.name"
               />

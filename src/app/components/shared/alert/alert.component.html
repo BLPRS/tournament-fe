@@ -1,5 +1,13 @@
-<div class="alert-popup" [class.active]="visible">
+<div
+  #elm
+  class="alert-popup"
+  [class.active]="visible"
+  (click)="dismissAlert($event)"
+>
   <div class="alert-content">
+    <div class="alert-dismiss" (click)="dismissAlert(null)">
+      <i class="fas fa-close"></i>
+    </div>
     <div class="alert-header">
       {{ title }}
     </div>
@@ -35,11 +43,6 @@
           </table>
         </div>
       </div>
-    </div>
-    <div class="alert-footer">
-      <button type="button" class="btn btn-secondary" (click)="dismissAlert()">
-        Close
-      </button>
     </div>
   </div>
 </div>
